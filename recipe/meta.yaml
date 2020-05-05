@@ -1,17 +1,16 @@
-{% set version = "5.4" %}
+{% set version = "5.5" %}
 
 package:
     name: esys-escript
     version: {{ version }}
 source:
     - url: https://launchpad.net/escript-finley/3.0+/{{ version }}/+download/python-escript_{{ version }}.tar.gz
-      sha256: 61e1b3b5451d1eca06ab7c3905adfdc41906ed69e8388bfc4db094b944eb403b
+      sha256: 78cb3c43a04426c4909c6f1ca1aa23cbec574d783fd438fcfd419931b7c63be8
       folder: escript
 build:
-    skip: True  # [osx]
-    skip: True  # [win]
+    skip: True  # [not linux]
     skip: True  # [py!=27]
-    number: 1
+    number: 0
 requirements:
     build:
         - {{ compiler('cxx') }}
@@ -19,31 +18,28 @@ requirements:
         - scons >3.0.5
         - cmake
         - make
-        - python 2.7.*
-        - llvm-openmp  # [osx]
+        - python
     host:
         - boost-cpp 
         - boost
         - python 
-        - suitesparse
         - matplotlib
-        - gdal 
+        - gdal
+        - libopenblas
+        - libgomp
         - pyproj 
         - scipy 
         - sympy
-        - llvm-openmp  # [osx]
     run:
         - boost-cpp 
         - boost
         - numpy 
         - python
-        - suitesparse
         - matplotlib 
         - gdal 
         - pyproj
         - scipy
         - sympy
-        - llvm-openmp  # [osx]
 test:
     commands:
         - run-escript -c
