@@ -10,7 +10,7 @@ source:
 build:
     skip: True  # [not linux]
     skip: True  # [py!=27]
-    number: 0
+    number: 1
 requirements:
     build:
         - {{ compiler('cxx') }}
