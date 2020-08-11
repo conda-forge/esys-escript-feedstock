@@ -9,18 +9,21 @@ cd ${SRC_DIR}/escript
 if [ ${PY3K} -eq 1 ]
 then
     scons -j"${CPU_COUNT}" \
-        prefix="${PREFIX}" \
-        build_dir="${BUILD_PREFIX}/escript_build" \
-        boost_libs="boost_python37" \
-        boost_prefix="${PREFIX}" \
-        pythonincpath="${PREFIX}/include/python3.7m" \
-        pythonlibname="python3.7m" \
-        disable_boost_numpy="True" \
-        use_gmsh="False" \
-        openmp=1 \
-        umfpack=1 \
-        umfpack_prefix="${PREFIX}" \
-        compressed_files=0 \
+        options_file="${SRC_DIR}/escript/scons/templates/anaconda_python3_options.py" \
+        build_dir=${BUILD_PREFIX}/escript_build \
+        boost_prefix=${PREFIX} \
+        boost_libs="boost_python${CONDA_PY}" \
+        cxx=${CXX} \
+        cxx_extra="-w -fPIC" \
+        cppunit_prefix=${PREFIX} \
+        ld_extra="-L${PREFIX}/lib -lgomp" \
+        omp_flags="-fopenmp" \
+        prefix=${PREFIX} \
+        pythoncmd=${PREFIX}/bin/python \
+        pythonlibpath=${PREFIX}/lib \
+        pythonincpath=${PREFIX}/include/python${PY_VER} \
+        pythonlibname=python${PY_VER} \
+        umfpack_prefix=${PREFIX} \
         build_full || cat config.log
 else
     scons -j"${CPU_COUNT}" \
