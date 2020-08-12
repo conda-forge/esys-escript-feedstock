@@ -8,7 +8,7 @@ source:
       sha256: 47feb3b14de6b9415d2221f178af6843127a6d6cce5c6b4bae74e2833109fbaf
 build:
     skip: True  # [win and (py!=37 or vc<14)]
-    number: 0
+    number: 1
 requirements:
     build:
         - {{ compiler('cxx') }}
