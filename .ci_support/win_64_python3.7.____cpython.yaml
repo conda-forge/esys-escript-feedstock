@@ -1,7 +1,9 @@
+CMAKE_GENERATOR:
+- NMake Makefiles
 boost:
-- '1.72'
+- 1.72.0
 boost_cpp:
-- '1.72'
+- 1.72.0
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -9,7 +11,7 @@ channel_targets:
 cxx_compiler:
 - vs2017
 gdal:
-- '3.0'
+- '3.1'
 pin_run_as_build:
   boost:
     max_pin: x.x.x
