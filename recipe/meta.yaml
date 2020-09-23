@@ -15,7 +15,7 @@ build:
     skip: True  # [win and (py!=37 or vc<14)]
     skip: True  # [linux and py!=38]
     skip: True  # [osx]
-    number: 0
+    number: 1
 requirements:
     build:
         - {{ compiler('cxx') }}
@@ -31,8 +31,8 @@ requirements:
         - cppunit  # [linux]
         - numpy ==1.15.4  # [win]
         - python 
-        - matplotlib  # [linux]
-        - matplotlib ==2.2.2  # [win]
+        - matplotlib-base  # [linux]
+        - matplotlib-base ==2.2.2  # [win]
         - gdal
         - libopenblas  # [linux]
         - libgomp  # [linux]
@@ -48,8 +48,8 @@ requirements:
         - numpy  # [linux]
         - numpy ==1.15.4  # [win]
         - python
-        - matplotlib  # [linux]
-        - matplotlib ==2.2.2  # [win]
+        - matplotlib-base  # [linux]
+        - matplotlib-base ==2.2.2  # [win]
         - gdal 
         - pyproj
         - scipy
