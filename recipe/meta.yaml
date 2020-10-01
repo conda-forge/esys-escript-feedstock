@@ -8,7 +8,8 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - git_url: https://github.com/esys-escript/esys-escript.github.io
+    - url: https://launchpad.net/escript-finley/3.0+/{{ version }}/+download/python_escript_{{ version }}.1.tar.gz
+      sha256: 85d18ad4b6e3379f6ab7d3e9cdf90aaf8a7cdc508f6d4cd4489effca0955f6dd
       folder: escript
 build:
     skip: True  # [win and (py!=37 or vc<14)]
