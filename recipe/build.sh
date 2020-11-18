@@ -5,7 +5,12 @@ set -o pipefail
 
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
-if [ ${CONDA_PY} -eq 36 ] || [ ${CONDA_PY} -eq 37 ] || [ ${CONDA_PY} -eq 38 ]
+find / -iname Python.h 2>/dev/null
+find / -iname "libboost_python*" 2>/dev/null
+find / -iname "libboost_numpy*" 2>/dev/null
+find / -iname "libpython*" 2>/dev/null
+
+if [ ${CONDA_PY} -eq 37 ] || [ ${CONDA_PY} -eq 38 ]
 then
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
