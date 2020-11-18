@@ -7,12 +7,12 @@ CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
 if [ ${CONDA_PY} -eq 38 ]
 then
-    BOOST_LIBS="boost_python${PY_VER}"
+    BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
     PYTHON_LIB_NAME="python${PY_VER}"
 else
-    BOOST_LIBS="boost_python${PY_VER}m"
+    BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
     PYTHON_LIB_NAME="python${PY_VER}m"
