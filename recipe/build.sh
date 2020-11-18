@@ -5,6 +5,19 @@ set -o pipefail
 
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
+if [ ${CONDA_PY} -eq 38 ] || [ ${CONDA_PY} -eq 39 ]
+then
+    BOOST_LIBS="boost_python${CONDA_PY}"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
+    PYTHON_LIB_NAME="python${PY_VER}"
+else
+    BOOST_LIBS="boost_python${CONDA_PY}m"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
+    PYTHON_LIB_NAME="python${PY_VER}m"
+fi
+
 cd ${SRC_DIR}/escript
 if [ ${PY3K} -eq 1 ]
 then
@@ -12,7 +25,7 @@ then
         options_file="${SRC_DIR}/escript/scons/templates/anaconda_python3_options.py" \
         build_dir=${BUILD_PREFIX}/escript_build \
         boost_prefix=${PREFIX} \
-        boost_libs="boost_python${CONDA_PY}" \
+        boost_libs=${BOOST_LIBS} \
         cxx=${CXX} \
         cxx_extra="-w -fPIC" \
         cppunit_prefix=${PREFIX} \
@@ -20,9 +33,9 @@ then
         omp_flags="-fopenmp" \
         prefix=${PREFIX} \
         pythoncmd=${PREFIX}/bin/python \
-        pythonlibpath=${PREFIX}/lib \
-        pythonincpath=${PREFIX}/include/python${PY_VER} \
-        pythonlibname=python${PY_VER} \
+        pythonlibpath=${PYTHON_LIB_PATH} \
+        pythonincpath=${PYTHON_INC_PATH} \
+        pythonlibname=${PYTHON_LIB_NAME} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
 else
