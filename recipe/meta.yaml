@@ -16,6 +16,7 @@ source:
       folder: escript  # [linux]
 build:
     skip: True  # [win and (py!=37 or vc<14)]
+    skip: True  # [osx]
     number: 1
 requirements:
     build:
