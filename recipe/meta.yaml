@@ -8,12 +8,9 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://launchpad.net/escript-finley/3.0+/{{ version }}/+download/python_escript_{{ version }}.tar.gz  # [win]
-      sha256: 99c5bc9e7262fb0baef5d9aa3a99bcbf3965b9d718835c6b56c516e39bb6c992  # [win]
-      folder: escript  # [win]
-    - git_url: https://github.com/esys-escript/esys-escript.github.io  # [linux]
-      git_rev: 5.6.2  # [linux]
-      folder: escript  # [linux]
+    - git_url: https://github.com/esys-escript/esys-escript.github.io
+      git_rev: 5.6.2
+      folder: escript
 build:
     skip: True  # [win and (py!=37 or vc<14)]
     skip: True  # [osx]
@@ -25,37 +22,45 @@ requirements:
         - cmake
         - make
         - python
-        - numpy ==1.15.4  # [win]
+        - numpy           # [win and py>=38]
+        - numpy ==1.15.4  # [win and py<=37]
+        - mumps  # [win]
         - git
     host:
         - boost-cpp
         - boost
         - cppunit  # [linux]
-        - numpy ==1.15.4  # [win]
+        - numpy           # [win and py>=38]
+        - numpy ==1.15.4  # [win and py<=37]
         - python 
         - matplotlib  # [linux]
-        - matplotlib ==2.2.2  # [win]
+        - matplotlib          # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
         - libopenblas  # [linux]
         - libgomp  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
-        - sympy ==1.1.1  # [win]
+        - sympy          # [win and py>=38]
+        - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
     run:
         - boost-cpp
         - boost
         - numpy  # [linux]
-        - numpy ==1.15.4  # [win]
+        - numpy           # [win and py>=38]
+        - numpy ==1.15.4  # [win and py<=37]
         - python
         - matplotlib  # [linux]
-        - matplotlib ==2.2.2  # [win]
+        - matplotlib          # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
         - gdal 
         - pyproj
         - scipy
-        - sympy ==1.1.1  # [win]
+        - sympy          # [win and py>=38]
+        - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
 test:
