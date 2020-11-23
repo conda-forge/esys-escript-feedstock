@@ -8,8 +8,7 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - git_url: https://github.com/esys-escript/esys-escript.github.io
-      git_rev: 5.6.2
+    - url: https://github.com/esys-escript/esys-escript.github.io/tarball/5.6.2
       folder: escript
 build:
     skip: True  # [win and (py!=37 or vc<14)]
