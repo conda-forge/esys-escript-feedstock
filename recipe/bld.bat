@@ -3,7 +3,7 @@
 set NC_BUILD_TYPE=Release
 mkdir %SRC_DIR%\netcdf-cxx4\build
 cd %SRC_DIR%\netcdf-cxx4\build
-cmake -G "%CMAKE_GENERATOR%" ^
+call cmake -G "%CMAKE_GENERATOR%" ^
     -DBUILD_SHARED_LIBS=OFF ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_LIBRARY_PATH="%LIBRARY_LIB%" ^
@@ -12,9 +12,9 @@ cmake -G "%CMAKE_GENERATOR%" ^
     -DHDF5_LIB_NAME="hdf5" ^
     %SRC_DIR%\netcdf-cxx4
 if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE%
+call cmake --build . --config Release
 if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE% --target install
+call cmake --build . --config Release --target install
 if errorlevel 1 exit \b 1
 
 :: workaround for bug in win-64/boost-1.73.0-py38_11
