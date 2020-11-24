@@ -12,9 +12,9 @@ call cmake -G "%CMAKE_GENERATOR%" ^
     -DHDF5_LIB_NAME="hdf5" ^
     %SRC_DIR%\netcdf-cxx4
 if errorlevel 1 exit \b 1
-call cmake --build . --config Release
+call cmake --build . --config %NC_BUILD_TYPE%
 if errorlevel 1 exit \b 1
-call cmake --build . --config Release --target install
+call cmake --build . --config %NC_BUILD_TYPE% --target install
 if errorlevel 1 exit \b 1
 
 :: workaround for bug in win-64/boost-1.73.0-py38_11
