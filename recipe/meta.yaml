@@ -23,7 +23,7 @@ requirements:
         - cmake
         - make
         - python
-        - numpy # [win and py>=38]
+        - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
         - git
@@ -31,11 +31,11 @@ requirements:
         - boost-cpp
         - boost
         - cppunit  # [linux]
-        - numpy # [win and py>=38]
+        - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python 
         - matplotlib  # [linux]
-        - matplotlib # [win and py>=38]
+        - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
         - libopenblas  # [linux]
@@ -43,7 +43,7 @@ requirements:
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
-        - sympy # [win and py>=38]
+        - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
@@ -51,16 +51,16 @@ requirements:
         - boost-cpp
         - boost
         - numpy  # [linux]
-        - numpy # [win and py>=38]
+        - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python
         - matplotlib  # [linux]
-        - matplotlib # [win and py>=38]
+        - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal 
         - pyproj
         - scipy
-        - sympy # [win and py>=38]
+        - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
