@@ -5,7 +5,6 @@ set -o pipefail
 
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
-FC=gfortran
 DEFAULT_HDF5_INCDIR=$PREFIX/include
 DEFAULT_HDF5_LIBDIR=$PREFIX/lib
 
