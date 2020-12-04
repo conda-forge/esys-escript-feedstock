@@ -3,7 +3,18 @@
 set -x -e
 set -o pipefail
 
+CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
+FC=gfortran
+DEFAULT_HDF5_INCDIR=$PREFIX/include
+DEFAULT_HDF5_LIBDIR=$PREFIX/lib
+
+cd ${SRC_DIR}/silo
+./configure --prefix=${PREFIX} \
+    --with-hdf5=${PREFIX}/include,${PREFIX}/lib \
+    --with-zlib=$PREFIX/include,$PREFIX/lib
+make -j"${CPU_COUNT}"
+make -j"${CPU_COUNT}" install
 
 if [ ${CONDA_PY} -eq 38 ]
 then
@@ -36,6 +47,8 @@ then
         pythonlibpath=${PYTHON_LIB_PATH} \
         pythonincpath=${PYTHON_INC_PATH} \
         pythonlibname=${PYTHON_LIB_NAME} \
+        silo=1 \
+        silo_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
 else
@@ -56,6 +69,8 @@ else
         pythonincpath="${PREFIX}/include/python2.7" \
         pythonlibname="python2.7" \
         paso=1 \
+        silo=1 \
+        silo_prefix=${PREFIX} \
         trilinos=0 \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
