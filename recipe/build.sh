@@ -21,11 +21,13 @@ then
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
     PYTHON_LIB_NAME="python${PY_VER}"
+    BUILD_SILO=0
 else
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
     PYTHON_LIB_NAME="python${PY_VER}m"
+    BUILD_SILO=1
 fi
 
 cd ${SRC_DIR}/escript
@@ -68,7 +70,7 @@ else
         pythonincpath="${PREFIX}/include/python2.7" \
         pythonlibname="python2.7" \
         paso=1 \
-        silo=1 \
+        silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
         trilinos=0 \
         umfpack=0 \
