@@ -14,8 +14,14 @@ cxx_compiler_version:
 - '9'
 docker_image:
 - quay.io/condaforge/linux-anvil-comp7
+fortran_compiler:
+- gfortran
+fortran_compiler_version:
+- '9'
 gdal:
 - '3.0'
+hdf5:
+- 1.10.5
 pin_run_as_build:
   boost:
     max_pin: x.x.x
@@ -26,9 +32,16 @@ pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
+  zlib:
+    max_pin: x.x
 python:
 - 3.6.* *_cpython
 suitesparse:
 - '5.6'
 target_platform:
 - linux-64
+zip_keys:
+- - cxx_compiler_version
+  - fortran_compiler_version
+zlib:
+- '1.2'
