@@ -8,8 +8,8 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2-bsd-smalltest.tar.gz
-      sha256: d49263a8323ba5238cc60640f7621e539bce600f5bccf09526bbcc98850216ed
+    - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2.tar.gz
+      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
       folder: silo
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.6.2.tar.gz
       sha256: 253f94fdd95c00754d7f3964b590680bbb9b0cfff0996f5120306d7791c325f1
