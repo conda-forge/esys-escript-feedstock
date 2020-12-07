@@ -3,6 +3,7 @@
 set -x -e
 set -o pipefail
 
+CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
 if [ ${CONDA_PY} -eq 38 ]
@@ -11,11 +12,21 @@ then
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
     PYTHON_LIB_NAME="python${PY_VER}"
+    BUILD_SILO=0
 else
+    DEFAULT_HDF5_INCDIR=$PREFIX/include
+    DEFAULT_HDF5_LIBDIR=$PREFIX/lib
+    cd ${SRC_DIR}/silo
+    ./configure --prefix=${PREFIX} \
+            --with-hdf5=${PREFIX}/include,${PREFIX}/lib \
+            --with-zlib=$PREFIX/include,$PREFIX/lib
+    make -j"${CPU_COUNT}"
+    make -j"${CPU_COUNT}" install
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
     PYTHON_LIB_NAME="python${PY_VER}m"
+    BUILD_SILO=1
 fi
 
 cd ${SRC_DIR}/escript
@@ -36,6 +47,8 @@ then
         pythonlibpath=${PYTHON_LIB_PATH} \
         pythonincpath=${PYTHON_INC_PATH} \
         pythonlibname=${PYTHON_LIB_NAME} \
+        silo=${BUILD_SILO} \
+        silo_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
 else
@@ -56,6 +69,8 @@ else
         pythonincpath="${PREFIX}/include/python2.7" \
         pythonlibname="python2.7" \
         paso=1 \
+        silo=${BUILD_SILO} \
+        silo_prefix=${PREFIX} \
         trilinos=0 \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
