@@ -48,7 +48,7 @@ then
         pythonlibpath=${PYTHON_LIB_PATH} \
         pythonincpath=${PYTHON_INC_PATH} \
         pythonlibname=${PYTHON_LIB_NAME} \
-        silo=1 \
+        silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
