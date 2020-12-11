@@ -29,5 +29,7 @@ target_platform:
 vc:
 - '14'
 zip_keys:
-- - python
-  - numpy
+- - boost
+  - boost_cpp
+- - numpy
+  - python

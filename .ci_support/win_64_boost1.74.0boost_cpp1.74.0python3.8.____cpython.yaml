@@ -1,7 +1,7 @@
 boost:
-- 1.72.0
+- 1.74.0
 boost_cpp:
-- 1.72.0
+- 1.74.0
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -23,11 +23,13 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.7.* *_cpython
+- 3.8.* *_cpython
 target_platform:
 - win-64
 vc:
 - '14'
 zip_keys:
-- - python
-  - numpy
+- - boost
+  - boost_cpp
+- - numpy
+  - python
