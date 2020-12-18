@@ -30,7 +30,6 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
-        - git
         - hdf5
         - zlib
     host:
@@ -47,7 +46,6 @@ requirements:
         - hdf5
         - libopenblas  # [linux]
         - libgomp  # [linux]
-        - pyproj 
         - scipy 
         - suitesparse  # [linux]
         - sympy  # [win and py>=38]
@@ -67,7 +65,6 @@ requirements:
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal 
         - hdf5
-        - pyproj
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
