@@ -1,0 +1,105 @@
+--- a/SiloWindows/MSVC2012/Silo.sln
++++ b/SiloWindows/MSVC2012/Silo.sln
+@@ -6,11 +6,11 @@
+ 		{17857422-AD82-4D37-A5AF-94C4556935D0} = {17857422-AD82-4D37-A5AF-94C4556935D0}
+ 	EndProjectSection
+ EndProject
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "silex", "silex.vcxproj", "{5B19C3D2-D3F9-4A39-A1CD-5A557D83E990}"
+-	ProjectSection(ProjectDependencies) = postProject
+-		{3A796AF3-3578-B923-4A26-3E27F5305DC9} = {3A796AF3-3578-B923-4A26-3E27F5305DC9}
+-	EndProjectSection
+-EndProject
++#Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "silex", "silex.vcxproj", "{5B19C3D2-D3F9-4A39-A1CD-5A557D83E990}"
++#	ProjectSection(ProjectDependencies) = postProject
++#		{3A796AF3-3578-B923-4A26-3E27F5305DC9} = {3A796AF3-3578-B923-4A26-3E27F5305DC9}
++#	EndProjectSection
++#EndProject
+ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdb_detect", "pdb_detect\pdb_detect.vcxproj", "{17857422-AD82-4D37-A5AF-94C4556935D0}"
+ EndProject
+ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "browser", "browser.vcxproj", "{239DB654-39CC-46B4-85EC-894F6592BF17}"
+--- a/SiloWindows/MSVC2012/Silo.vcxproj
++++ b/SiloWindows/MSVC2012/Silo.vcxproj
+@@ -109,7 +109,7 @@
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <ClCompile>
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+       <WarningLevel>Level3</WarningLevel>
+       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+@@ -125,7 +125,7 @@
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+     <ClCompile>
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+       <WarningLevel>Level3</WarningLevel>
+       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+@@ -141,7 +141,7 @@
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+     <ClCompile>
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+       <WarningLevel>Level3</WarningLevel>
+       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+@@ -159,7 +159,7 @@
+   </ItemDefinitionGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+     <ClCompile>
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
++      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+       <WarningLevel>Level3</WarningLevel>
+       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+--- a/SiloWindows/copysilo.bat
++++ b/SiloWindows/copysilo.bat
+@@ -77,7 +77,7 @@
+ )
+ 
+ REM Read silo.h.in, parsing for VERS info, and substituting in appropriate values
+-for /F "tokens=1* delims=]" %%i in ('find /v /n "" ^.\..\src\silo\silo.h.in') do (
++for /F "tokens=1* delims=]" %%i in ('%windir%\System32\find /v /n "" ^.\..\src\silo\silo.h.in') do (
+   REM preserve blank lines
+   if "%%j"=="" (
+     @echo.>>%SiloOut%
+--- a/src/fpzip/pcmap.h
++++ b/src/fpzip/pcmap.h
+@@ -8,6 +8,10 @@
+ 
+ #define bitsizeof(t) ((unsigned)(CHAR_BIT * sizeof(t)))
+ 
++#ifdef _WIN32
++#undef DOMAIN
++#endif
++
+ template <typename T, unsigned width = bitsizeof(T), typename U = void>
+ struct PCmap;
+ 
+--- a/src/hdf5_drv/h5fdsilo.c
++++ b/src/hdf5_drv/h5fdsilo.c
+@@ -500,6 +500,9 @@
+     "silo",				        /*name			*/
+     MAXADDR,				        /*maxaddr		*/
+     H5F_CLOSE_WEAK,				/* fc_degree		*/
++#ifdef _WIN32
++    NULL,
++#endif
+     H5FD_silo_sb_size,                          /*sb_size               */
+     H5FD_silo_sb_encode,                        /*sb_encode             */
+     H5FD_silo_sb_decode,                        /*sb_decode             */
+--- a/src/silo/silo_win32_compatibility.h
++++ b/src/silo/silo_win32_compatibility.h
+@@ -12,7 +12,9 @@
+ #define pclose    _pclose
+ #define popen     _popen
+ #define read      _read
++#if _MSC_VER < 1700
+ #define snprintf  _snprintf
++#endif
+ #define stat      _stat
+ #define write     _write
+ 
