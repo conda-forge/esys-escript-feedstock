@@ -32,7 +32,6 @@ requirements:
         - boost
         - cppunit  # [linux]
         - gdal
-        - gmsh  # [win]
         - hdf5
         - libopenblas  # [linux]
         - libgomp  # [linux]
@@ -53,7 +52,6 @@ requirements:
         - boost-cpp
         - boost
         - gdal
-        - gmsh  # [win] 
         - hdf5
         - numpy  # [linux]
         - numpy  # [win and py>=38]
