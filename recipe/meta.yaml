@@ -11,7 +11,7 @@ source:
     - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2.tar.gz
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
       folder: silo
-      patches: silo.patch
+      patches: silo.patch  # [win]
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.6.2.tar.gz
       sha256: 253f94fdd95c00754d7f3964b590680bbb9b0cfff0996f5120306d7791c325f1
       folder: escript
