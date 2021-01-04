@@ -11,7 +11,7 @@ source:
     - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2.tar.gz
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
       folder: silo
-      patches: silo.patch  # [win]
+      patches: silo.patch
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.6.2.tar.gz
       sha256: 253f94fdd95c00754d7f3964b590680bbb9b0cfff0996f5120306d7791c325f1
       folder: escript
@@ -23,37 +23,19 @@ requirements:
     build:
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}  # [linux]
-        - scons >3.0.5
+        - scons >3.0.5 
         - cmake
         - make
         - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
-        - mumps  # [win]
-        - git
-        - hdf5
-        - zlib
     host:
         - boost-cpp
         - boost
+        - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
-        - python 
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - gdal
+        - python
         - hdf5
-        - libopenblas  # [linux]
-        - libgomp  # [linux]
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - mumps  # [win]
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
-        - python 
-        - pyproj
+        - pyproj 
         - scipy 
         - suitesparse  # [linux]
         - sympy  # [win and py>=38]
@@ -64,24 +46,18 @@ requirements:
     run:
         - boost-cpp
         - boost
-        - gdal
-        - hdf5
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - gdal 
-        - hdf5
+        - hdf5  # [linux]
         - pyproj
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib
+        - zlib 
 test:
     commands:
         - run-escript -c
