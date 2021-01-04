@@ -23,7 +23,7 @@ requirements:
     build:
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}  # [linux]
-        - scons >3.0.5 
+        - scons >3.0.5
         - cmake
         - make
         - python
@@ -36,7 +36,6 @@ requirements:
     host:
         - boost-cpp
         - boost
-        - cppunit  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python 
