@@ -27,10 +27,22 @@ requirements:
         - cmake
         - make
         - python
+        - numpy  # [win and py>=38]
+        - numpy ==1.15.4  # [win and py<=37]
+        - mumps  # [win]
+        - git
+        - hdf5
+        - zlib
     host:
         - boost-cpp
         - boost
         - cppunit  # [linux]
+        - numpy  # [win and py>=38]
+        - numpy ==1.15.4  # [win and py<=37]
+        - python 
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
         - hdf5
         - libopenblas  # [linux]
@@ -47,6 +59,8 @@ requirements:
         - suitesparse  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
+        - gmsh  # [win]
+        - mumps  # [win]
         - zlib
     run:
         - boost-cpp
@@ -56,15 +70,18 @@ requirements:
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
+        - python
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
-        - mumps  # [win]
-        - python
+        - gdal 
+        - hdf5
         - pyproj
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
+        - gmsh  # [win]
+        - mumps  # [win]
         - zlib
 test:
     commands:
