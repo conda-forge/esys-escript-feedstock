@@ -43,7 +43,6 @@ requirements:
         - suitesparse  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
         - mumps  # [win]
         - zlib
     run:
@@ -60,7 +59,6 @@ requirements:
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
         - mumps  # [win]
         - zlib
 test:
