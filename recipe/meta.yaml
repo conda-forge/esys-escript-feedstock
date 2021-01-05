@@ -26,13 +26,13 @@ requirements:
         - scons >3.0.5 
         - cmake
         - make
-        - python ==3.8
+        - python
     host:
         - boost-cpp
         - boost
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
-        - python ==3.8
+        - python
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
@@ -52,7 +52,7 @@ requirements:
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
-        - python ==3.8
+        - python
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
