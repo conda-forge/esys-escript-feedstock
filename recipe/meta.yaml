@@ -33,16 +33,11 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5
         - libopenblas  # [linux]
         - libgomp  # [linux]
         - scipy 
         - suitesparse  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
         - mumps  # [win]
         - zlib
     run:
@@ -51,13 +46,8 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5
         - scipy
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
         - mumps  # [win]
         - zlib
 test:
