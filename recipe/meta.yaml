@@ -7,8 +7,8 @@ source:
     - url: https://github.com/Unidata/netcdf-cxx4/archive/v4.3.1.tar.gz
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
-      patches: netcdf-cxx4.patch
-    - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2.tar.gz
+      patches: netcdf-cxx4.patch  # [win]
+    - url: https://bitbucket.org/AdvancedMultiPhysics/tpl-builder/downloads/silo-4.10.2.tar.gz
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
       folder: silo
       patches: silo.patch  # [win]
@@ -26,16 +26,19 @@ requirements:
         - scons >3.0.5 
         - cmake
         - make
-        - python
+        - python ==3.8
     host:
         - boost-cpp
         - boost
-        - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
-        - python
+        - python ==3.8
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5
-        - pyproj 
+        - libopenblas  # [linux]
+        - libgomp  # [linux]
         - scipy 
         - suitesparse  # [linux]
         - sympy  # [win and py>=38]
@@ -49,15 +52,17 @@ requirements:
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
-        - python
-        - hdf5  # [linux]
-        - pyproj
+        - python ==3.8
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
+        - hdf5
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib 
+        - zlib
 test:
     commands:
         - run-escript -c
