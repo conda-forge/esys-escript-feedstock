@@ -20,14 +20,14 @@
 --- a/SiloWindows/MSVC2012/Silo.vcxproj
 +++ b/SiloWindows/MSVC2012/Silo.vcxproj
 @@ -109,7 +109,7 @@
-   </PropertyGroup>
-   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-     <ClCompile>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
 -      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 +      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-       <WarningLevel>Level3</WarningLevel>
-       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
 @@ -125,7 +125,7 @@
    </ItemDefinitionGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
