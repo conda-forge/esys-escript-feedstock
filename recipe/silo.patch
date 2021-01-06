@@ -1,6 +1,12 @@
+diff --git a/SiloWindows/MSVC2012/.Silo.vcxproj.kate-swp b/SiloWindows/MSVC2012/.Silo.vcxproj.kate-swp
+deleted file mode 100644
+index 430a48d..0000000
+Binary files a/SiloWindows/MSVC2012/.Silo.vcxproj.kate-swp and /dev/null differ
+diff --git a/SiloWindows/MSVC2012/Silo.sln b/SiloWindows/MSVC2012/Silo.sln
+index f23fd14..485a2dd 100644
 --- a/SiloWindows/MSVC2012/Silo.sln
 +++ b/SiloWindows/MSVC2012/Silo.sln
-@@ -6,11 +6,11 @@
+@@ -6,11 +6,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Silo", "Silo.vcxproj", "{3A
  		{17857422-AD82-4D37-A5AF-94C4556935D0} = {17857422-AD82-4D37-A5AF-94C4556935D0}
  	EndProjectSection
  EndProject
@@ -17,17 +23,19 @@
  Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdb_detect", "pdb_detect\pdb_detect.vcxproj", "{17857422-AD82-4D37-A5AF-94C4556935D0}"
  EndProject
  Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "browser", "browser.vcxproj", "{239DB654-39CC-46B4-85EC-894F6592BF17}"
+diff --git a/SiloWindows/MSVC2012/Silo.vcxproj b/SiloWindows/MSVC2012/Silo.vcxproj
+index e538716..6a40b3b 100644
 --- a/SiloWindows/MSVC2012/Silo.vcxproj
 +++ b/SiloWindows/MSVC2012/Silo.vcxproj
 @@ -109,7 +109,7 @@
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
+   </PropertyGroup>
+   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+     <ClCompile>
 -      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 +      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SILO_EXPORTS;LITE_EXPORTS;H5_BUILT_AS_DYNAMIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+       <WarningLevel>Level3</WarningLevel>
+       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
 @@ -125,7 +125,7 @@
    </ItemDefinitionGroup>
    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -55,9 +63,18 @@
        <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
        <WarningLevel>Level3</WarningLevel>
        <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+@@ -284,4 +284,4 @@
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+   <ImportGroup Label="ExtensionTargets">
+   </ImportGroup>
+-</Project>
+\ No newline at end of file
++</Project>
+diff --git a/SiloWindows/copysilo.bat b/SiloWindows/copysilo.bat
+index 7c6689a..4e936ce 100644
 --- a/SiloWindows/copysilo.bat
 +++ b/SiloWindows/copysilo.bat
-@@ -77,7 +77,7 @@
+@@ -77,7 +77,7 @@ if exist %VersionOut% (
  )
  
  REM Read silo.h.in, parsing for VERS info, and substituting in appropriate values
@@ -66,6 +83,8 @@
    REM preserve blank lines
    if "%%j"=="" (
      @echo.>>%SiloOut%
+diff --git a/src/fpzip/pcmap.h b/src/fpzip/pcmap.h
+index aa24afa..a029b16 100644
 --- a/src/fpzip/pcmap.h
 +++ b/src/fpzip/pcmap.h
 @@ -8,6 +8,10 @@
@@ -79,9 +98,11 @@
  template <typename T, unsigned width = bitsizeof(T), typename U = void>
  struct PCmap;
  
---- a/src/hdf5_drv/h5fdsilo.c
-+++ b/src/hdf5_drv/h5fdsilo.c
-@@ -500,6 +500,9 @@
+diff --git a/src/hdf5_drv/H5FDsilo.c b/src/hdf5_drv/H5FDsilo.c
+index 840dfd0..ba5808c 100644
+--- a/src/hdf5_drv/H5FDsilo.c
++++ b/src/hdf5_drv/H5FDsilo.c
+@@ -500,6 +500,9 @@ static const H5FD_class_t H5FD_silo_g = {
      "silo",				        /*name			*/
      MAXADDR,				        /*maxaddr		*/
      H5F_CLOSE_WEAK,				/* fc_degree		*/
@@ -91,6 +112,8 @@
      H5FD_silo_sb_size,                          /*sb_size               */
      H5FD_silo_sb_encode,                        /*sb_encode             */
      H5FD_silo_sb_decode,                        /*sb_decode             */
+diff --git a/src/silo/silo_win32_compatibility.h b/src/silo/silo_win32_compatibility.h
+index 28bf300..ab696fd 100644
 --- a/src/silo/silo_win32_compatibility.h
 +++ b/src/silo/silo_win32_compatibility.h
 @@ -12,7 +12,9 @@
