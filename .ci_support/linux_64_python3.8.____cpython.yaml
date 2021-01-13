@@ -1,7 +1,7 @@
 boost:
-- 1.72.0
+- 1.74.0
 boost_cpp:
-- 1.72.0
+- 1.74.0
 cdt_name:
 - cos6
 channel_sources:
@@ -19,7 +19,7 @@ fortran_compiler:
 fortran_compiler_version:
 - '9'
 gdal:
-- '3.0'
+- '3.1'
 hdf5:
 - 1.10.5
 pin_run_as_build:
@@ -41,6 +41,8 @@ suitesparse:
 target_platform:
 - linux-64
 zip_keys:
+- - cdt_name
+  - docker_image
 - - cxx_compiler_version
   - fortran_compiler_version
 zlib:
