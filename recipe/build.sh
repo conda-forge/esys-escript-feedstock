@@ -6,6 +6,10 @@ set -o pipefail
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
+find / -iname "libboost_python*"
+find / -iname "libpython*"
+find / -iname "Python.h"
+
 if [ ${CONDA_PY} -eq 38 ]
 then
     BOOST_LIBS="boost_python${CONDA_PY}"
