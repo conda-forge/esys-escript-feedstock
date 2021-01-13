@@ -8,9 +8,6 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://wci.llnl.gov/content/assets/docs/simulation/computer-codes/silo/silo-4.10.2/silo-4.10.2.tar.gz
-      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
-      folder: silo
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.6.2.tar.gz
       sha256: 253f94fdd95c00754d7f3964b590680bbb9b0cfff0996f5120306d7791c325f1
       folder: escript
@@ -20,7 +17,6 @@ build:
 requirements:
     build:
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [linux or osx]
         - scons >3.0.5 
         - cmake
         - make
@@ -29,8 +25,6 @@ requirements:
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
         - git
-        - hdf5  # [linux or osx]
-        - zlib  # [linux or osx]
     host:
         - boost-cpp
         - boost
@@ -42,7 +36,6 @@ requirements:
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
-        - hdf5  # [linux or osx]
         - libopenblas  # [linux or osx]
         - libgomp  # [linux]
         - pyproj 
@@ -52,7 +45,6 @@ requirements:
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib  # [linux or osx]
     run:
         - boost-cpp
         - boost
@@ -64,14 +56,12 @@ requirements:
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal 
-        - hdf5  # [linux or osx]
         - pyproj
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib  # [linux or osx]
 test:
     commands:
         - run-escript -c
