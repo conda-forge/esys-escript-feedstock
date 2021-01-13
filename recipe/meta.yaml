@@ -20,7 +20,7 @@ build:
 requirements:
     build:
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}  # [linux]
+        - {{ compiler('fortran') }}  # [linux or osx]
         - scons >3.0.5 
         - cmake
         - make
@@ -29,53 +29,53 @@ requirements:
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
         - git
-        - hdf5  # [linux]
-        - zlib  # [linux]
+        - hdf5  # [linux or osx]
+        - zlib  # [linux or osx]
     host:
         - boost-cpp
         - boost
-        - cppunit  # [linux]
+        - cppunit  # [linux or osx]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python 
-        - matplotlib  # [linux]
+        - matplotlib  # [linux or osx]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
-        - hdf5  # [linux]
-        - libopenblas  # [linux]
-        - libgomp  # [linux]
+        - hdf5  # [linux or osx]
+        - libopenblas  # [linux or osx]
+        - libgomp  # [linux or osx]
         - pyproj 
         - scipy 
-        - suitesparse  # [linux]
+        - suitesparse  # [linux or osx]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib  # [linux]
+        - zlib  # [linux or osx]
     run:
         - boost-cpp
         - boost
-        - numpy  # [linux]
+        - numpy  # [linux or osx]
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
+        - matplotlib  # [linux or osx]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal 
-        - hdf5  # [linux]
+        - hdf5  # [linux or osx]
         - pyproj
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
-        - zlib  # [linux]
+        - zlib  # [linux or osx]
 test:
     commands:
         - run-escript -c
-        - run-escript /tmp/release_sanity.py  # [linux]
+        - run-escript /tmp/release_sanity.py  # [linux or osx]
         - run-escript %TEMP%/release_sanity.py  # [win]
 about:
     home: https://launchpad.net/escript-finley
