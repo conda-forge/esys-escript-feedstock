@@ -36,6 +36,7 @@ requirements:
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - gdal
+        - libcxx {{ cxx_compiler_version }}  # [osx]
         - libopenblas  # [linux or osx]
         - libgomp  # [linux]
         - pyproj 
@@ -43,7 +44,6 @@ requirements:
         - suitesparse  # [linux or osx]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
         - mumps  # [win]
     run:
         - boost-cpp
@@ -60,7 +60,6 @@ requirements:
         - scipy
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
         - mumps  # [win]
 test:
     commands:
