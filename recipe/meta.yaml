@@ -1,3 +1,4 @@
+
 {% set version = "5.6" %}
 
 package:
@@ -24,7 +25,6 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
-        - git
     host:
         - boost-cpp
         - boost
