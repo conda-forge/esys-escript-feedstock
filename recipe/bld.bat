@@ -1,40 +1,128 @@
-:: build nectcdf-cxx4 first
-::
-set NC_BUILD_TYPE=Release
-mkdir %SRC_DIR%\netcdf-cxx4\build
-cd %SRC_DIR%\netcdf-cxx4\build
-cmake -G "Visual Studio 15 2017 Win64" ^
-    -DBUILD_SHARED_LIBS=OFF ^
-    -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
-    -DCMAKE_LIBRARY_PATH="%LIBRARY_LIB%" ^
-    -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
-    -DNETCDF_LIB_NAME="netcdf" ^
-    -DHDF5_LIB_NAME="hdf5" ^
-    %SRC_DIR%\netcdf-cxx4
-if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE%
-if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE% --target install
-if errorlevel 1 exit \b 1
+#!/bin/bash
 
-:: workaround for bug in win-64/boost-1.73.0-py38_11
-if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
-    if exist "%LIBRARY_PREFIX%\include\boost\python\python.hpp" (
-        copy "%LIBRARY_PREFIX%\include\boost\python\python.hpp" "%LIBRARY_PREFIX%\include\boost"
-    )
-)
-:: now build escript
-::
-cd %SRC_DIR%\escript
-call scons -j%CPU_COUNT% ^
-    options_file="scons\templates\windows_msvc141_options.py" ^
-    compressed_files=0 ^
-    prefix="%PREFIX%" ^
-    build_dir="%BUILD_PREFIX%\escript_build" ^
-    build_full
-if errorlevel 1 exit \b 1
+set -x -e
+set -o pipefail
 
-:: type config.log
-copy /y %SRC_DIR%\escript\LICENSE %SRC_DIR%\LICENSE
-copy /y %PREFIX%\esys %SP_DIR%\esys
-copy /y %BUILD_PREFIX%\escript_build\scripts\release_sanity.py %TEMP%\release_sanity.py
+CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
+CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
+
+if [ ${CONDA_PY} -eq 38 ]
+then
+    BOOST_LIBS="boost_python${CONDA_PY}"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
+    PYTHON_LIB_NAME="python${PY_VER}"
+    BUILD_SILO=0
+else
+    DEFAULT_HDF5_INCDIR=$PREFIX/include
+    DEFAULT_HDF5_LIBDIR=$PREFIX/lib
+    cd ${SRC_DIR}/silo
+    ./configure --prefix=${PREFIX} \
+            --with-hdf5=${PREFIX}/include,${PREFIX}/lib \
+            --with-zlib=$PREFIX/include,$PREFIX/lib
+    make -j"${CPU_COUNT}"
+    make -j"${CPU_COUNT}" install
+    BOOST_LIBS="boost_python${CONDA_PY}"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
+    PYTHON_LIB_NAME="python${PY_VER}m"
+    BUILD_SILO=1
+fi
+
+mkdir ${SRC_DIR}/trilinos_build
+cd ${SRC_DIR}/trilinos_build
+cmake \
+      -D CMAKE_BUILD_TYPE=RELEASE \
+      -D CMAKE_CXX_FLAGS=' -fPIC ' \
+      -D CMAKE_C_FLAGS=' -fPIC ' \
+      -D Trilinos_ENABLE_CXX11=ON \
+      -D Trilinos_ENABLE_Fortran=OFF \
+      -D CMAKE_INSTALL_PREFIX=${PREFIX} \
+      -D BUILD_SHARED_LIBS=ON \
+      -D TPL_ENABLE_LAPACK=ON \
+      -D TPL_ENABLE_MPI=OFF \
+      -D TPL_ENABLE_UMFPACK=ON \
+      -D Trilinos_ENABLE_Amesos=ON \
+      -D Trilinos_ENABLE_Amesos2=ON \
+      -D Trilinos_ENABLE_AztecOO=ON \
+      -D Trilinos_ENABLE_Belos=ON \
+      -D Trilinos_ENABLE_Ifpack=ON \
+      -D Trilinos_ENABLE_Ifpack2=ON \
+      -D Trilinos_ENABLE_Kokkos=ON \
+      -D Trilinos_ENABLE_Komplex=ON \
+      -D Trilinos_ENABLE_ML=ON \
+      -D Trilinos_ENABLE_MueLu=ON \
+      -D Trilinos_ENABLE_Teuchos=ON \
+      -D Trilinos_ENABLE_Tpetra=ON \
+      -D Trilinos_ENABLE_ALL_OPTIONAL_PACKAGES=ON \
+      -D KOKKOS_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
+      -D Tpetra_INST_COMPLEX_DOUBLE=ON \
+      -D Teuchos_ENABLE_COMPLEX=ON \
+      -D TpetraKernels_ENABLE_Experimental=ON \
+      -D Trilinos_ENABLE_OpenMP=ON \
+      -D Trilinos_ENABLE_EXPLICIT_INSTANTIATION=ON \
+      -D KOKKOS_ENABLE_COMPILER_WARNINGS=ON \
+      -D Amesos2_ENABLE_Basker=ON \
+      -D Tpetra_INST_SERIAL:BOOL=ON \
+      -D Tpetra_INST_INT_INT=ON \
+${SRC_DIR}/trilinos_source
+make -j"${CPU_COUNT}" install
+
+cd ${SRC_DIR}/escript
+if [ ${PY3K} -eq 1 ]
+then
+    scons -j"${CPU_COUNT}" \
+        options_file="${SRC_DIR}/escript/scons/templates/anaconda_python3_options.py" \
+        build_dir=${BUILD_PREFIX}/escript_build \
+        boost_prefix=${PREFIX} \
+        boost_libs=${BOOST_LIBS} \
+        cxx=${CXX} \
+        cxx_extra="-w -fPIC" \
+        cppunit_prefix=${PREFIX} \
+        ld_extra="-L${PREFIX}/lib -lgomp" \
+        omp_flags="-fopenmp" \
+        prefix=${PREFIX} \
+        pythoncmd=${PREFIX}/bin/python \
+        pythonlibpath=${PYTHON_LIB_PATH} \
+        pythonincpath=${PYTHON_INC_PATH} \
+        pythonlibname=${PYTHON_LIB_NAME} \
+        silo=${BUILD_SILO} \
+        silo_prefix=${PREFIX} \
+        trilinos=1 \
+        trilinos_prefix=${PREFIX} \
+        umfpack_prefix=${PREFIX} \
+        build_full || cat config.log
+else
+    scons -j"${CPU_COUNT}" \
+        options_file="${SRC_DIR}/escript/scons/templates/buster_py2_options.py" \
+        prefix=${PREFIX} \
+        build_dir=${BUILD_PREFIX}/escript_build \
+        boost_prefix=${PREFIX} \
+        boost_libs="boost_python27" \
+        cxx=${CXX} \
+        cxx_extra="-w -fPIC" \
+        ld_extra="-L${PREFIX}/lib -lgomp" \
+        cppunit_prefix=${PREFIX} \
+        openmp=1 \
+        omp_flags="-fopenmp" \
+        pythoncmd=${PREFIX}/bin/python \
+        pythonlibpath="${PREFIX}/lib" \
+        pythonincpath="${PREFIX}/include/python2.7" \
+        pythonlibname="python2.7" \
+        paso=1 \
+        silo=${BUILD_SILO} \
+        silo_prefix=${PREFIX} \
+        trilinos=1 \
+        trilinos_prefix=${PREFIX} \
+        umfpack=0 \
+        umfpack_prefix="${PREFIX}" \
+        netcdf=no \
+        werror=0 \
+        verbose=0 \
+        compressed_files=0 \
+        build_full || cat config.log
+fi
+
+cp -R ${SRC_DIR}/escript/LICENSE ${SRC_DIR}/LICENSE
+cp -R ${PREFIX}/esys ${SP_DIR}/esys
+cp -R ${BUILD_PREFIX}/escript_build/scripts/release_sanity.py /tmp/release_sanity.py
