@@ -16,7 +16,7 @@ source:
       folder: silo
       patches: silo.patch  # [win]
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.tar.gz
-      sha256: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.tar.gz
+      sha256: 7f62f9194196fddb6feea16a37a9e06c5d4ae688489003f1a878eb59e733bb4d
       folder: escript
 build:
     skip: True  # [win and (py<37 or vc<14)]
