@@ -25,7 +25,7 @@ build:
 requirements:
     build:
         - {{ compiler('cxx') }}
-        - {{ compiler('fortran') }}
+        - {{ compiler('fortran') }}  # [linux]
         - scons >3.0.5 
         - cmake
         - make
@@ -39,6 +39,7 @@ requirements:
         - hdf5
         - libopenblas  # [linux]
         - libgomp  # [linux]
+        - mkl
         - scipy 
         - suitesparse  # [linux]
         - mumps  # [win]
@@ -46,6 +47,7 @@ requirements:
     run:
         - boost-cpp
         - boost
+        - mkl
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
         - python
