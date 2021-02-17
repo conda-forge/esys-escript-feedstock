@@ -66,7 +66,8 @@ cmake \
       -D Tpetra_INST_SERIAL:BOOL=ON \
       -D Tpetra_INST_INT_INT=ON \
 ${SRC_DIR}/trilinos_source
-make -j"${CPU_COUNT}" install
+#make -j"${CPU_COUNT}" install
+BUILD_TRILINOS=0
 
 cd ${SRC_DIR}/escript
 if [ ${PY3K} -eq 1 ]
@@ -88,7 +89,7 @@ then
         pythonlibname=${PYTHON_LIB_NAME} \
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
-        trilinos=1 \
+        trilinos=${BUILD_TRILINOS} \
         trilinos_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
@@ -112,7 +113,7 @@ else
         paso=1 \
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
-        trilinos=1 \
+        trilinos=${BUILD_TRILINOS} \
         trilinos_prefix=${PREFIX} \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
