@@ -25,6 +25,7 @@ build:
 requirements:
     build:
         - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
         - scons >3.0.5 
         - cmake
         - make
