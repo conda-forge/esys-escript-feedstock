@@ -4,17 +4,16 @@ package:
     name: esys-escript
     version: {{ version }}
 source:
-    - url: https://github.com/trilinos/Trilinos/archive/trilinos-release-13-0-0.tar.gz
-      sha256: d44e8181b3ef5eae4e90aad40a33486f0b2ae6ba1c34b419ce8cbc70fd5dd6bd
-      folder: trilinos_source
+    - url: https://github.com/trilinos/Trilinos/archive/trilinos-release-13-0-0.tar.gz  # [linux]
+      sha256: d44e8181b3ef5eae4e90aad40a33486f0b2ae6ba1c34b419ce8cbc70fd5dd6bd  # [linux]
+      folder: trilinos_source  # [linux]
     - url: https://github.com/Unidata/netcdf-cxx4/archive/v4.3.1.tar.gz
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch  # [win]
-    - url: https://bitbucket.org/AdvancedMultiPhysics/tpl-builder/downloads/silo-4.10.2.tar.gz
-      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
-      folder: silo
-      patches: silo.patch  # [win]
+    - url: https://bitbucket.org/AdvancedMultiPhysics/tpl-builder/downloads/silo-4.10.2.tar.gz  # [linux]
+      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638  # [linux]
+      folder: silo  # [linux]
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.tar.gz
       sha256: 7f62f9194196fddb6feea16a37a9e06c5d4ae688489003f1a878eb59e733bb4d
       folder: escript
