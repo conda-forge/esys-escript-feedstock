@@ -32,28 +32,42 @@ requirements:
     host:
         - boost-cpp
         - boost
+        - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
         - python
-        - hdf5
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
+        - hdf5  # [linux]
         - libopenblas  # [linux]
         - libgomp  # [linux]
         - mkl
+        - pyproj
         - scipy 
         - suitesparse  # [linux]
+        - sympy  # [win and py>=38]
+        - sympy ==1.1.1  # [win and py<=37]
         - mumps  # [win]
-        - zlib
+        - zlib  # [linux]
     run:
         - boost-cpp
         - boost
         - mkl
+        - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
         - python
-        - hdf5
+        - pyproj
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
+        - matplotlib ==2.2.2  # [win and py<=37]
+        - hdf5  # [linux]
         - scipy
+        - sympy  # [win and py>=38]
+        - sympy ==1.1.1  # [win and py<=37]
         - mumps  # [win]
-        - zlib
+        - zlib  # [linux]
 test:
     commands:
         - run-escript -c
