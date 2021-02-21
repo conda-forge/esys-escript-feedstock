@@ -29,46 +29,6 @@ else
     BUILD_SILO=1
 fi
 
-mkdir ${SRC_DIR}/trilinos_build
-cd ${SRC_DIR}/trilinos_build
-cmake \
-      -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_CXX_FLAGS=' -fPIC ' \
-      -D CMAKE_C_FLAGS=' -fPIC ' \
-      -D Trilinos_ENABLE_CXX11=ON \
-      -D Trilinos_ENABLE_Fortran=OFF \
-      -D CMAKE_INSTALL_PREFIX=${PREFIX} \
-      -D BUILD_SHARED_LIBS=ON \
-      -D TPL_ENABLE_LAPACK=ON \
-      -D TPL_ENABLE_MPI=OFF \
-      -D TPL_ENABLE_UMFPACK=ON \
-      -D Trilinos_ENABLE_Amesos=ON \
-      -D Trilinos_ENABLE_Amesos2=ON \
-      -D Trilinos_ENABLE_AztecOO=ON \
-      -D Trilinos_ENABLE_Belos=ON \
-      -D Trilinos_ENABLE_Ifpack=ON \
-      -D Trilinos_ENABLE_Ifpack2=ON \
-      -D Trilinos_ENABLE_Kokkos=ON \
-      -D Trilinos_ENABLE_Komplex=ON \
-      -D Trilinos_ENABLE_ML=ON \
-      -D Trilinos_ENABLE_MueLu=ON \
-      -D Trilinos_ENABLE_Teuchos=ON \
-      -D Trilinos_ENABLE_Tpetra=ON \
-      -D Trilinos_ENABLE_ALL_OPTIONAL_PACKAGES=ON \
-      -D KOKKOS_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
-      -D Tpetra_INST_COMPLEX_DOUBLE=ON \
-      -D Teuchos_ENABLE_COMPLEX=ON \
-      -D TpetraKernels_ENABLE_Experimental=ON \
-      -D Trilinos_ENABLE_OpenMP=ON \
-      -D Trilinos_ENABLE_EXPLICIT_INSTANTIATION=ON \
-      -D KOKKOS_ENABLE_COMPILER_WARNINGS=ON \
-      -D Amesos2_ENABLE_Basker=ON \
-      -D Tpetra_INST_SERIAL:BOOL=ON \
-      -D Tpetra_INST_INT_INT=ON \
-${SRC_DIR}/trilinos_source
-#make -j"${CPU_COUNT}" install
-BUILD_TRILINOS=0
-
 cd ${SRC_DIR}/escript
 if [ ${PY3K} -eq 1 ]
 then
@@ -89,8 +49,6 @@ then
         pythonlibname=${PYTHON_LIB_NAME} \
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
-        trilinos=${BUILD_TRILINOS} \
-        trilinos_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         build_full || cat config.log
 else
@@ -113,8 +71,7 @@ else
         paso=1 \
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
-        trilinos=${BUILD_TRILINOS} \
-        trilinos_prefix=${PREFIX} \
+        trilinos=0 \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
         netcdf=no \
