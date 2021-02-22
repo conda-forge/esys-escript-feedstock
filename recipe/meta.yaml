@@ -12,7 +12,7 @@ source:
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638  # [linux]
       folder: silo  # [linux]
     - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.tar.gz
-      sha256: a1128fde4715bf6e17bdc37002097e115aacc0dbec795d48daadcf0c110f9de4
+      sha256: 413e0a7012c0d384bf1cfb567c87e4c4e13963dc32cdd9cb7c4eabd10ce18af1
       folder: escript
 build:
     skip: True  # [win and (py<37 or vc<14)]
