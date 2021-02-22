@@ -30,6 +30,7 @@ call scons -j%CPU_COUNT% ^
     options_file="scons\templates\windows_msvc141_options.py" ^
     compressed_files=0 ^
     prefix="%PREFIX%" ^
+    netcdf="off" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
     build_full
 if errorlevel 1 exit \b 1
