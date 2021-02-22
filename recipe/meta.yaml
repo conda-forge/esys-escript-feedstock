@@ -42,7 +42,6 @@ requirements:
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
-        - gdal
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - libgomp  # [linux]
@@ -64,7 +63,6 @@ requirements:
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
-        - gdal 
         - hdf5  # [linux]
         - scipy
         - sympy  # [win and py>=38]
