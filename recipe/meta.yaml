@@ -11,8 +11,8 @@ source:
     - url: https://bitbucket.org/AdvancedMultiPhysics/tpl-builder/downloads/silo-4.10.2.tar.gz  # [linux]
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638  # [linux]
       folder: silo  # [linux]
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.tar.gz
-      sha256: 7f62f9194196fddb6feea16a37a9e06c5d4ae688489003f1a878eb59e733bb4d
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.1.tar.gz
+      sha256: c04fcf9d7fc57b5f62c5313ef463fb0ba187f48c2a8668f95484d4b15978d49e
       folder: escript
 build:
     skip: True  # [win and (py<37 or vc<14)]
