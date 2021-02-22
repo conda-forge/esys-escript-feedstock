@@ -30,6 +30,10 @@ requirements:
     host:
         - boost-cpp
         - boost
+        - libnetcdf  # [win]
+        - netcdf4  # [win]
+        - netcdf4-cxx4  # [win]
+        - netcdf4-cxx-legacy  # [win]
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
@@ -48,6 +52,10 @@ requirements:
     run:
         - boost-cpp
         - boost
+        - libnetcdf  # [win]
+        - netcdf4  # [win]
+        - netcdf4-cxx4  # [win]
+        - netcdf4-cxx-legacy  # [win]
         - numpy  # [linux]
         - numpy  # [win and py>=38]
         - numpy >=1.15.4  # [win and py<=37]
