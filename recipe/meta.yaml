@@ -1,4 +1,4 @@
-{% set version = "5.7" %}
+{% set version = "5.7.2" %}
 
 package:
     name: esys-escript
@@ -11,8 +11,8 @@ source:
     - url: https://bitbucket.org/AdvancedMultiPhysics/tpl-builder/downloads/silo-4.10.2.tar.gz  # [linux]
       sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638  # [linux]
       folder: silo  # [linux]
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.1.tar.gz
-      sha256: c04fcf9d7fc57b5f62c5313ef463fb0ba187f48c2a8668f95484d4b15978d49e
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/5.7.2.tar.gz
+      sha256: 1f8ecf4c701b85d0bdd0ead7a784ac5a3aa69c02816d24779edc5669e2efc033
       folder: escript
 build:
     skip: True  # [win and (py<37 or vc<14)]
