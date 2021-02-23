@@ -1,4 +1,4 @@
-{% set version = "5.7.2" %}
+{% set version = "5.7" %}
 
 package:
     name: esys-escript
@@ -62,7 +62,7 @@ requirements:
         - zlib  # [linux]
 test:
     commands:
-        - run-escript -c
+        # - run-escript -c
         - run-escript /tmp/release_sanity.py  # [linux]
         - run-escript %TEMP%/release_sanity.py  # [win]
 about:
