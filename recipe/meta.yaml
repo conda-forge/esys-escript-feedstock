@@ -62,9 +62,10 @@ requirements:
         - zlib  # [linux]
 test:
     commands:
-        # - run-escript -c
+        - cd %PREFIX%  # [win]
+        - run-escript -c
         - run-escript /tmp/release_sanity.py  # [linux]
-        - run-escript %TEMP%/release_sanity.py  # [win]
+        - run-escript %TEMP%\release_sanity.py  # [win]
 about:
     home: https://launchpad.net/escript-finley
     summary: esys-escript is a programming tool for implementing mathematical 
