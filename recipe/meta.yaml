@@ -63,7 +63,7 @@ requirements:
 test:
     commands:
         - cd %PREFIX%  # [win]
-        - run-escript -c
+        - run-escript -c 
         - run-escript /tmp/release_sanity.py  # [linux]
         - run-escript %TEMP%\release_sanity.py  # [win]
 about:
