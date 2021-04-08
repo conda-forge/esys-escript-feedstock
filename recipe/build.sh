@@ -16,17 +16,17 @@ then
 else
     DEFAULT_HDF5_INCDIR=$PREFIX/include
     DEFAULT_HDF5_LIBDIR=$PREFIX/lib
-    cd ${SRC_DIR}/silo
-    ./configure --prefix=${PREFIX} \
-            --with-hdf5=${PREFIX}/include,${PREFIX}/lib \
-            --with-zlib=$PREFIX/include,$PREFIX/lib
-    make -j"${CPU_COUNT}"
-    make -j"${CPU_COUNT}" install
+    # cd ${SRC_DIR}/silo
+    # ./configure --prefix=${PREFIX} \
+    #         --with-hdf5=${PREFIX}/include,${PREFIX}/lib \
+    #         --with-zlib=$PREFIX/include,$PREFIX/lib
+    # make -j"${CPU_COUNT}"
+    # make -j"${CPU_COUNT}" install
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
     PYTHON_LIB_NAME="python${PY_VER}m"
-    BUILD_SILO=1
+    BUILD_SILO=0
 fi
 
 cd ${SRC_DIR}/escript
