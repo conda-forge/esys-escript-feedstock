@@ -17,7 +17,7 @@ source:
 build:
     skip: True  # [win and (py<37 or vc<14)]
     skip: True  # [osx]
-    number: 3
+    number: 0
 requirements:
     build:
         - {{ compiler('cxx') }}
