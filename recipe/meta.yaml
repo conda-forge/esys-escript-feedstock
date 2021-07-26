@@ -18,6 +18,7 @@ build:
 #     skip: True  # [win and (py<37 or vc<14)]
     skip: True  # [win]
     skip: True  # [osx]
+    skip: True  # [linux and py==39]
     number: 0
 requirements:
     build:
