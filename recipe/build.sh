@@ -26,7 +26,7 @@ else
     PYTHON_LIB_PATH="${PREFIX}/lib"
     PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
     PYTHON_LIB_NAME="python${PY_VER}m"
-    BUILD_SILO=1
+    BUILD_SILO=0
 fi
 
 cd ${SRC_DIR}/escript
