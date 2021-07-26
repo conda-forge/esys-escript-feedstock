@@ -15,7 +15,8 @@ source:
       sha256: 3c06306d6c22a806c0aade88cf4dd8824f368db6a4bb3419d2d52e599130395b
       folder: escript
 build:
-    skip: True  # [win and (py<37 or vc<14)]
+#     skip: True  # [win and (py<37 or vc<14)]
+    skip: True  # [win]
     skip: True  # [osx]
     number: 0
 requirements:
@@ -75,7 +76,7 @@ requirements:
 test:
     commands:
         - run-escript -c
-        - run-escript '-t8' /tmp/release_sanity.py  # [linux]
+        - run-escript /tmp/release_sanity.py  # [linux]
         - run-escript %TEMP%/release_sanity.py  # [win]
 about:
     home: https://launchpad.net/escript-finley
