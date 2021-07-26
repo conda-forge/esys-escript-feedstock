@@ -1,4 +1,4 @@
-{% set version = "5.7" %}
+{% set version = "5.8" %}
 
 package:
     name: esys-escript
@@ -8,16 +8,20 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.7.tar.gz
-      sha256: 413e0a7012c0d384bf1cfb567c87e4c4e13963dc32cdd9cb7c4eabd10ce18af1
+    - url: https://wci.llnl.gov/sites/wci/files/2021-01/silo-4.10.2.tgz
+      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
+      folder: silo
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.8pre.tar.gz
+      sha256: 3c06306d6c22a806c0aade88cf4dd8824f368db6a4bb3419d2d52e599130395b
       folder: escript
 build:
-    skip: True  # [win]
+    skip: True  # [win and (py<37 or vc<14)]
     skip: True  # [osx]
-    number: 0
+    number: 3
 requirements:
     build:
         - {{ compiler('cxx') }}
+        # - {{ compiler('fortran') }}  # [linux]
         - scons >3.0.5 
         - cmake
         - make
@@ -25,7 +29,8 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - mumps  # [win]
-        - git
+        - hdf5  # [linux]
+        - zlib  # [linux]
     host:
         - boost-cpp
         - boost
@@ -35,8 +40,10 @@ requirements:
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
+        # - gdal
         - hdf5  # [linux]
         - libopenblas  # [linux]
+        # - libgomp  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
@@ -44,6 +51,7 @@ requirements:
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
+        - zlib  # [linux]
     run:
         - boost-cpp
         - boost
@@ -54,17 +62,20 @@ requirements:
         - matplotlib  # [linux]
         - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
+        # - gdal 
         - hdf5  # [linux]
         - pyproj
         - scipy
+        - sympy  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
+        - zlib  # [linux]
 test:
     commands:
         - run-escript -c
-        - run-escript /tmp/release_sanity.py  # [linux]
+        - run-escript '-t8' /tmp/release_sanity.py  # [linux]
         - run-escript %TEMP%/release_sanity.py  # [win]
 about:
     home: https://launchpad.net/escript-finley
