@@ -45,7 +45,7 @@ requirements:
         # - gdal
         - hdf5  # [linux]
         - libopenblas  # [linux]
-        # - libgomp  # [linux]
+        - libgomp  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
