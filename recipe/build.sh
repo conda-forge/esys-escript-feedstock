@@ -10,39 +10,32 @@ BOOST_LIBS="boost_python${CONDA_PY}"
 PYTHON_LIB_PATH="${PREFIX}/lib"
 PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
 PYTHON_LIB_NAME="python${PY_VER}"
-BUILD_SILO=0
 
-# export LD_LIBRARY_PATH=${PREFIX}/lib
+BUILD_SILO=0
 
 cd ${SRC_DIR}/escript
 scons -j"${CPU_COUNT}" \
-    options_file="${SRC_DIR}/escript/scons/templates/buster_py3_options.py" \
-    prefix=${PREFIX} \
-    build_dir=${BUILD_PREFIX} \
+    options_file="${SRC_DIR}/escript/scons/templates/anaconda_python3_options.py" \
+    build_dir=${BUILD_PREFIX}/escript_build \
     boost_prefix=${PREFIX} \
-    boost_libs="boost_python39" \
+    boost_libs=${BOOST_LIBS} \
     cxx=${CXX} \
     cxx_extra="-w -fPIC" \
-    ld_extra="-L${PREFIX}/lib -lgomp" \
     cppunit_prefix=${PREFIX} \
-    openmp=1 \
+    ld_extra="-L${PREFIX}/lib -lgomp" \
     omp_flags="-fopenmp" \
+    prefix=${PREFIX} \
     pythoncmd=${PREFIX}/bin/python \
-    pythonlibpath="${PREFIX}/lib" \
-    pythonincpath="${PREFIX}/include/python3.9" \
-    pythonlibname="python3.9" \
-    paso=1 \
+    pythonlibpath=${PYTHON_LIB_PATH} \
+    pythonincpath=${PYTHON_INC_PATH} \
+    pythonlibname=${PYTHON_LIB_NAME} \
     silo=${BUILD_SILO} \
     silo_prefix=${PREFIX} \
-    trilinos=0 \
-    umfpack=1 \
-    umfpack_prefix="${PREFIX}" \
-    netcdf=no \
-    werror=0 \
-    verbose=0 \
-    compressed_files=0 \
+    umfpack_prefix=${PREFIX} \
     build_full || cat config.log
+
 
 cp -R ${SRC_DIR}/escript/LICENSE ${SRC_DIR}/LICENSE
 cp -R ${PREFIX}/esys ${SP_DIR}/esys
-cp -R ${BUILD_PREFIX}/scripts/release_sanity.py /tmp/release_sanity.py
+cp -R ${BUILD_PREFIX}/escript_build/scripts/release_sanity.py /tmp/release_sanity.py
+
