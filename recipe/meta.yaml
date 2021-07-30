@@ -45,6 +45,7 @@ requirements:
         - pyproj
         - scipy
         - sympy  # [linux]
+        - suitesparse  # [linux]
 test:
     commands:
         - run-escript -c
