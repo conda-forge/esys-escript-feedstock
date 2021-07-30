@@ -27,8 +27,8 @@ requirements:
         - make
         - python
     host:
-        - boost-cpp
-        - boost
+        - boost-cpp ==1.73.0
+        - boost ==1.73.0
         - python 
         - matplotlib  # [linux]
         - libopenblas  # [linux]
@@ -36,15 +36,14 @@ requirements:
         - scipy 
         - suitesparse  # [linux]
     run:
-        - boost-cpp
-        - boost
+        - boost-cpp ==1.73.0
+        - boost ==1.73.0
         - numpy  # [linux]
         - python
         - matplotlib  # [linux]
         - pyproj
         - scipy
         - sympy  # [linux]
-        - suitesparse  # [linux]
 test:
     commands:
         - run-escript -c
