@@ -4,73 +4,37 @@ package:
     name: esys-escript
     version: {{ version }}
 source:
-    - url: https://github.com/Unidata/netcdf-cxx4/archive/v4.3.1.tar.gz
-      sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
-      folder: netcdf-cxx4
-      patches: netcdf-cxx4.patch
-    - url: https://wci.llnl.gov/sites/wci/files/2021-01/silo-4.10.2.tgz
-      sha256: 3af87e5f0608a69849c00eb7c73b11f8422fa36903dd14610584506e7f68e638
-      folder: silo
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.8.1pre.tar.gz
-      sha256: c72424e35bedfc1900b851334237adb48b93aba7d3d9ec9ec511a3ed466cf5a4
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.8pre.tar.gz
+      sha256: 3c06306d6c22a806c0aade88cf4dd8824f368db6a4bb3419d2d52e599130395b
       folder: escript
 build:
-#     skip: True  # [win and (py<37 or vc<14)]
-    skip: True  # [win]
+    skip: True  # [win and (py<37 or vc<14)]
     skip: True  # [osx]
-    skip: True  # [linux and py==39]
+    skip: True  # [linux and py!=39]
     number: 0
 requirements:
     build:
         - {{ compiler('cxx') }}
-        # - {{ compiler('fortran') }}  # [linux]
         - scons >3.0.5 
-        - cmake
-        - make
-        - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
-        - mumps  # [win]
     host:
-        - boost-cpp
-        - boost
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
-        - python 
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - libopenblas  # [linux]
-        - libgomp  # [linux]
-        - pyproj 
-        - scipy 
-        - suitesparse  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
-        - mumps  # [win]
-    run:
-        - boost-cpp
-        - boost
+        - boost-cpp ==1.73.0
+        - boost ==1.73.0
         - numpy  # [linux]
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - pyproj
-        - scipy
-        - sympy  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
-        - gmsh  # [win]
-        - mumps  # [win]
+        - suitesparse  # [linux]
+        - sympy
+    run:
+        - boost-cpp ==1.73.0
+        - boost  ==1.73.0
+        - libgomp  # [linux]
+        - numpy  # [linux]
+        - python
+        - suitesparse  # [linux]
+        - sympy
 test:
     commands:
         - run-escript -c
-        - run-escript /tmp/release_sanity.py  # [linux]
-        - run-escript %TEMP%/release_sanity.py  # [win]
+        - run-escript '-t8' /tmp/release_sanity.py  # [linux]
 about:
     home: https://launchpad.net/escript-finley
     summary: esys-escript is a programming tool for implementing mathematical 
