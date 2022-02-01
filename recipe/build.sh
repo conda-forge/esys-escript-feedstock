@@ -4,9 +4,20 @@ set -x -e
 set -o pipefail
 
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
-CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
+CXXFLAGS="${CXXFLAGS} -i sysroot ${CONDA_BUILD_SYSROOT} -fPIC -w -fopenmp"
+
+# CXX=mpic++
+TRILINOS=0
+MPI='no'
 
 if [ ${CONDA_PY} -eq 38 ]
+then
+    BOOST_LIBS="boost_python${CONDA_PY}"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
+    PYTHON_LIB_NAME="python${PY_VER}"
+    BUILD_SILO=0
+elif [ ${CONDA_PY} -eq 39 ]
 then
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
@@ -38,9 +49,11 @@ then
         boost_prefix=${PREFIX} \
         boost_libs=${BOOST_LIBS} \
         cxx=${CXX} \
-        cxx_extra="-w -fPIC" \
+        cxx_extra="-w -fPIC -fdiagnostics-color -std=c++11 " \
         cppunit_prefix=${PREFIX} \
         ld_extra="-L${PREFIX}/lib -lgomp" \
+        netcdf='no' \
+        openmp=1 \
         omp_flags="-fopenmp" \
         prefix=${PREFIX} \
         pythoncmd=${PREFIX}/bin/python \
@@ -50,6 +63,7 @@ then
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
+        verbose=1 \
         build_full || cat config.log
 else
     scons -j"${CPU_COUNT}" \
@@ -74,7 +88,7 @@ else
         trilinos=0 \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
-        netcdf=no \
+        netcdf='no' \
         werror=0 \
         verbose=0 \
         compressed_files=0 \
