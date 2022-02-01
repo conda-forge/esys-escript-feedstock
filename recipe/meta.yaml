@@ -32,14 +32,15 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python 
-        - matplotlib-base  # [linux]
-        - matplotlib-base  # [win and py>=38]
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
+        - sympy  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
@@ -51,12 +52,13 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python
-        - matplotlib-base  # [linux]
-        - matplotlib-base  # [win and py>=38]
+        - matplotlib  # [linux]
+        - matplotlib  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5  # [linux]
         - pyproj
         - scipy
+        - sympy  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
