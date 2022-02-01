@@ -32,8 +32,8 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python 
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
+        - matplotlib-base  # [linux]
+        - matplotlib-base  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5  # [linux]
         - libopenblas  # [linux]
@@ -51,8 +51,8 @@ requirements:
         - numpy  # [win and py>=38]
         - numpy ==1.15.4  # [win and py<=37]
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
+        - matplotlib-base  # [linux]
+        - matplotlib-base  # [win and py>=38]
         - matplotlib ==2.2.2  # [win and py<=37]
         - hdf5  # [linux]
         - pyproj
