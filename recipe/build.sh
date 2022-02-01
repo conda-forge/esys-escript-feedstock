@@ -52,8 +52,8 @@ then
         cxx_extra="-w -fPIC -fdiagnostics-color -std=c++11 " \
         cppunit_prefix=${PREFIX} \
         ld_extra="-L${PREFIX}/lib -lgomp" \
-        mpi=${MPI} \
-        netcdf=4 \
+        netcdf='no' \
+        openmp=1 \
         omp_flags="-fopenmp" \
         prefix=${PREFIX} \
         pythoncmd=${PREFIX}/bin/python \
@@ -62,8 +62,6 @@ then
         pythonlibname=${PYTHON_LIB_NAME} \
         silo=${BUILD_SILO} \
         silo_prefix=${PREFIX} \
-        trilinos=${TRILINOS} \
-        trilinos_prefix=${PREFIX} \
         umfpack_prefix=${PREFIX} \
         verbose=1 \
         build_full || cat config.log
@@ -90,7 +88,7 @@ else
         trilinos=0 \
         umfpack=0 \
         umfpack_prefix="${PREFIX}" \
-        netcdf=4 \
+        netcdf='no' \
         werror=0 \
         verbose=0 \
         compressed_files=0 \
