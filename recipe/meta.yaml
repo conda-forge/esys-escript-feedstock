@@ -1,4 +1,4 @@
-{% set version = "5.9" %}
+{% set version = "5.9.1" %}
 
 package:
     name: esys-escript
@@ -12,7 +12,7 @@ source:
       sha256: 076ffae508aa7b1d9e4b2075e3592a0743146a48e31d3489c892ff223b9ec6a6
       folder: escript
 build:
-    skip: True  # [win]
+    skip: False  # [win]
     skip: True  # [osx]
     number: 0
 requirements:
@@ -22,45 +22,39 @@ requirements:
         - cmake
         - make
         - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy >=1.15.4  # [win]
         - mumps  # [win]
         - git
     host:
         - boost-cpp
         - boost
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy  # [linux]
+        - numpy >=1.15.4  # [win]
         - python 
         - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
+        - matplotlib >=2.2.2  # [win]
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
+        - sympy <=1.4  # [win]
         - sympy  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
     run:
         - boost-cpp
         - boost
         - numpy  # [linux]
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy >=1.15.4  # [win]
         - python
         - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
+        - matplotlib >=2.2.2  # [win]
         - hdf5  # [linux]
         - pyproj
         - scipy
+        - sympy <=1.4  # [win]
         - sympy  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
         - mumps  # [win]
 test:
