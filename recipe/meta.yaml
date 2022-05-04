@@ -12,7 +12,6 @@ source:
       sha256: 413e0a7012c0d384bf1cfb567c87e4c4e13963dc32cdd9cb7c4eabd10ce18af1
       folder: escript
 build:
-    skip: True  # [win]
     skip: True  # [osx]
     number: 0
 requirements:
@@ -22,43 +21,37 @@ requirements:
         - cmake
         - make
         - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy >=1.15.4  # [win]
         - mumps  # [win]
         - git
     host:
         - boost-cpp
         - boost
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy  # [linux]
+        - numpy >=1.15.4  # [win]
         - python 
         - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
+        - matplotlib >=2.2.2  # [win]
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
+        - sympy <=1.4  # [win]
         - gmsh  # [win]
         - mumps  # [win]
     run:
         - boost-cpp
         - boost
         - numpy  # [linux]
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy >=1.15.4  # [win]
         - python
         - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
+        - matplotlib >=2.2.2  # [win]
         - hdf5  # [linux]
         - pyproj
         - scipy
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
+        - sympy <=1.4  # [win]
         - gmsh  # [win]
         - mumps  # [win]
 test:
