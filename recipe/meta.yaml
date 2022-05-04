@@ -1,4 +1,4 @@
-{% set version = "5.9" %}
+{% set version = "5.9.1" %}
 
 package:
     name: esys-escript
@@ -12,6 +12,7 @@ source:
       sha256: 076ffae508aa7b1d9e4b2075e3592a0743146a48e31d3489c892ff223b9ec6a6
       folder: escript
 build:
+    skip: False  # [win]
     skip: True  # [osx]
     number: 0
 requirements:
