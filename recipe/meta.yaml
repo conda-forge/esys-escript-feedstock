@@ -1,4 +1,4 @@
-{% set version = "5.8.1" %}
+{% set version = "5.9" %}
 
 package:
     name: esys-escript
@@ -8,8 +8,8 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.7.tar.gz
-      sha256: 413e0a7012c0d384bf1cfb567c87e4c4e13963dc32cdd9cb7c4eabd10ce18af1
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.9pre.tar.gz
+      sha256: 076ffae508aa7b1d9e4b2075e3592a0743146a48e31d3489c892ff223b9ec6a6
       folder: escript
 build:
     skip: True  # [osx]
@@ -38,6 +38,7 @@ requirements:
         - scipy 
         - suitesparse  # [linux]
         - sympy <=1.4  # [win]
+        - sympy  # [linux]
         - gmsh  # [win]
         - mumps  # [win]
     run:
@@ -52,6 +53,7 @@ requirements:
         - pyproj
         - scipy
         - sympy <=1.4  # [win]
+        - sympy  # [linux]
         - gmsh  # [win]
         - mumps  # [win]
 test:
