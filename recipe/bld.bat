@@ -1,21 +1,21 @@
 :: build nectcdf-cxx4 first
 ::
-set NC_BUILD_TYPE=Release
-mkdir %SRC_DIR%\netcdf-cxx4\build
-cd %SRC_DIR%\netcdf-cxx4\build
-cmake -G "Visual Studio 15 2017 Win64" ^
-    -DBUILD_SHARED_LIBS=OFF ^
-    -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
-    -DCMAKE_LIBRARY_PATH="%LIBRARY_LIB%" ^
-    -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
-    -DNETCDF_LIB_NAME="netcdf" ^
-    -DHDF5_LIB_NAME="hdf5" ^
-    %SRC_DIR%\netcdf-cxx4
-if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE%
-if errorlevel 1 exit \b 1
-cmake --build . --config %NC_BUILD_TYPE% --target install
-if errorlevel 1 exit \b 1
+:: set NC_BUILD_TYPE=Release
+:: mkdir %SRC_DIR%\netcdf-cxx4\build
+:: cd %SRC_DIR%\netcdf-cxx4\build
+:: cmake -G "Visual Studio 15 2017 Win64" ^
+::     -DBUILD_SHARED_LIBS=OFF ^
+::     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
+::     -DCMAKE_LIBRARY_PATH="%LIBRARY_LIB%" ^
+::     -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
+::     -DNETCDF_LIB_NAME="netcdf" ^
+::     -DHDF5_LIB_NAME="hdf5" ^
+::     %SRC_DIR%\netcdf-cxx4
+:: if errorlevel 1 exit \b 1
+:: cmake --build . --config %NC_BUILD_TYPE%
+:: if errorlevel 1 exit \b 1
+:: cmake --build . --config %NC_BUILD_TYPE% --target install
+:: if errorlevel 1 exit \b 1
 
 :: workaround for bug in win-64/boost-1.73.0-py38_11
 if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
@@ -31,6 +31,7 @@ call scons -j%CPU_COUNT% ^
     compressed_files=0 ^
     prefix="%PREFIX%" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
+    netcdf="False" ^
     build_full
 if errorlevel 1 exit \b 1
 
