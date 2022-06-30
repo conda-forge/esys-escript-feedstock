@@ -37,6 +37,7 @@ requirements:
         - pyproj 
         - scipy 
         - suitesparse  # [linux]
+        - sympy  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
@@ -50,6 +51,7 @@ requirements:
         - hdf5  # [linux]
         - pyproj
         - scipy
+        - sympy  # [linux]
         - sympy  # [win and py>=38]
         - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]

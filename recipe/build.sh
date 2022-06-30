@@ -4,9 +4,20 @@ set -x -e
 set -o pipefail
 
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
-CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
+CXXFLAGS="${CXXFLAGS} -i sysroot ${CONDA_BUILD_SYSROOT} -fPIC -w -fopenmp"
+
+# CXX=mpic++
+TRILINOS=0
+MPI='no'
 
 if [ ${CONDA_PY} -eq 38 ]
+then
+    BOOST_LIBS="boost_python${CONDA_PY}"
+    PYTHON_LIB_PATH="${PREFIX}/lib"
+    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
+    PYTHON_LIB_NAME="python${PY_VER}"
+    BUILD_SILO=0
+elif [ ${CONDA_PY} -eq 39 ]
 then
     BOOST_LIBS="boost_python${CONDA_PY}"
     PYTHON_LIB_PATH="${PREFIX}/lib"
