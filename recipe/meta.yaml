@@ -33,7 +33,8 @@ requirements:
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - pyproj 
-        - scipy 
+        - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -45,6 +46,7 @@ requirements:
         - hdf5  # [linux]
         - pyproj
         - scipy
+        - sympy
         - gmsh  # [win]
 test:
     commands:
