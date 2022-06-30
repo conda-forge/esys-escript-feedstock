@@ -29,6 +29,7 @@ cd %SRC_DIR%\escript
 call scons -j%CPU_COUNT% ^
     options_file="scons\templates\windows_msvc141_options.py" ^
     compressed_files=0 ^
+    boost_prefix="%LIBRARY_PREFIX%\lib" ^
     prefix="%PREFIX%" ^
     netcdf="no" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
