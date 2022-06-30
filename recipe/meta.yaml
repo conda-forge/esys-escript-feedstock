@@ -23,7 +23,6 @@ requirements:
         - make
         - python
         - numpy
-        - mumps  # [win]
         - git
     host:
         - boost-cpp
@@ -37,7 +36,6 @@ requirements:
         - scipy 
         - suitesparse  # [linux]
         - gmsh  # [win]
-        - mumps  # [win]
     run:
         - boost-cpp
         - boost
@@ -48,7 +46,6 @@ requirements:
         - pyproj
         - scipy
         - gmsh  # [win]
-        - mumps  # [win]
 test:
     commands:
         - run-escript -c
