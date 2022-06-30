@@ -27,6 +27,7 @@ if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
 :: debug
 FIND boost %LIBRARY_PREFIX%
 FIND python %LIBRARY_PREFIX%
+FIND libpython %LIBRARY_PREFIX%
 
 :: now build escript
 ::
