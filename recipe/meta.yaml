@@ -22,8 +22,7 @@ requirements:
         - cmake
         - make
         - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy
         - mumps  # [win]
         - git
     host:
