@@ -32,7 +32,7 @@ requirements:
         - boost
         - numpy
         - python 
-        - matplotlib
+        - matplotlib-base
         - hdf5  # [linux]
         - libopenblas  # [linux]
         - pyproj 
@@ -48,7 +48,7 @@ requirements:
         - boost
         - numpy
         - python
-        - matplotlib
+        - matplotlib-base
         - hdf5  # [linux]
         - pyproj
         - scipy
