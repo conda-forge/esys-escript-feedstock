@@ -4,11 +4,7 @@ set -x -e
 set -o pipefail
 
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
-CXXFLAGS="${CXXFLAGS} -i sysroot ${CONDA_BUILD_SYSROOT} -fPIC -w -fopenmp"
-
-# CXX=mpic++
-TRILINOS=0
-MPI='no'
+CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
 if [ ${CONDA_PY} -eq 38 ]
 then
