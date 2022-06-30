@@ -22,6 +22,7 @@ if errorlevel 1 exit \b 1
 cd %SRC_DIR%\escript
 call scons -j%CPU_COUNT% ^
     options_file="scons\templates\windows_msvc141_options.py" ^
+    boost_prefix=%LIBRARY_INC%,%LIBRARY_LIB% ^
     compressed_files=0 ^
     prefix="%PREFIX%" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
