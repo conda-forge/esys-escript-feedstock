@@ -23,6 +23,11 @@ if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
         copy "%LIBRARY_PREFIX%\include\boost\python\python.hpp" "%LIBRARY_PREFIX%\include\boost"
     )
 )
+
+:: debug
+FIND boost %LIBRARY_PREFIX%
+FIND python %LIBRARY_PREFIX%
+
 :: now build escript
 ::
 cd %SRC_DIR%\escript
