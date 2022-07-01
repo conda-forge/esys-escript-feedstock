@@ -25,9 +25,9 @@ if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
 )
 
 :: debug
-FIND boost %LIBRARY_PREFIX%
-FIND python %LIBRARY_PREFIX%
-FIND libpython %LIBRARY_PREFIX%
+ls %LIBRARY_PREFIX%
+ls %LIBRARY_INC%
+ls %LIBRARY_LIB%
 
 :: now build escript
 ::
@@ -36,7 +36,6 @@ call scons -j%CPU_COUNT% ^
     options_file="scons\templates\windows_msvc141_options.py" ^
     compressed_files=0 ^
     boost_prefix=%LIBRARY_INC%,%LIBRARY_LIB% ^
-    pythonlibpath="%LIBRARY_PREFIX%\libs" ^
     prefix="%PREFIX%" ^
     netcdf="no" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
