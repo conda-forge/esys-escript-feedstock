@@ -32,6 +32,7 @@ requirements:
         - matplotlib-base
         - hdf5  # [linux]
         - libpython  # [win]
+        - libpython-static  # [win]
         - libopenblas  # [linux]
         - pyproj 
         - scipy
@@ -45,6 +46,7 @@ requirements:
         - python
         - matplotlib-base
         - libpython  # [win]
+        - libpython-static  # [win]
         - hdf5  # [linux]
         - pyproj
         - scipy
