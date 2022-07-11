@@ -8,8 +8,7 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.10pre.tar.gz
-      sha256: ed7612e540bb6ddb8d266e1a0515fdb56ce8f6480db44435c86f3d6d0fa36d53
+    - git_url: https://github.com/esys-escript/esys-escript.github.io
       folder: escript
 build:
     skip: True  # [osx]
@@ -30,10 +29,9 @@ requirements:
         - numpy
         - python 
         - matplotlib-base
-        - hdf5  # [linux]
-        - libpython  # [win]
-        - libpython-static  # [win]
+        - hdf5
         - libopenblas  # [linux]
+        - openmp
         - pyproj 
         - scipy
         - sympy
@@ -45,9 +43,8 @@ requirements:
         - numpy
         - python
         - matplotlib-base
-        - libpython  # [win]
-        - libpython-static  # [win]
-        - hdf5  # [linux]
+        - openmp
+        - hdf5
         - pyproj
         - scipy
         - sympy
