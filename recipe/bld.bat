@@ -37,6 +37,8 @@ call scons -j%CPU_COUNT% ^
     compressed_files=0 ^
     boost_prefix=%LIBRARY_INC%,%LIBRARY_LIB% ^
     prefix="%PREFIX%" ^
+    pythonincpath=%LIBRARY_INC% ^
+    pythonlibpath=%LIBRARY_LIB% ^
     netcdf="no" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
     build_full
