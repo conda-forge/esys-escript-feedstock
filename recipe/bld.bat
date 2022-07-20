@@ -37,7 +37,7 @@ call scons -j%CPU_COUNT% ^
     compressed_files=0 ^
     boost_prefix=%LIBRARY_INC%,%LIBRARY_LIB% ^
     prefix="%PREFIX%" ^
-    pythonlibname='python3' ^
+    pythonlibname="python3" ^
     pythonlibpath=%LIBRARY_LIB% ^
     pythonincpath=%LIBRARY_INC% ^
     netcdf="no" ^
