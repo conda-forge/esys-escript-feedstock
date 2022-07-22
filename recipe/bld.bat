@@ -28,6 +28,7 @@ if not exist "%LIBRARY_PREFIX%\include\boost\python.hpp" (
 ls %LIBRARY_PREFIX%
 ls %LIBRARY_INC%
 ls %LIBRARY_LIB%
+ls %STDLIB_DIR%
 
 :: now build escript
 ::
@@ -39,7 +40,7 @@ call scons -j%CPU_COUNT% ^
     prefix="%PREFIX%" ^
     pythonlibname="python3" ^
     pythonlibpath=%STDLIB_DIR% ^
-    pythonincpath=%LIBRARY_INC% ^
+    pythonincpath="%SRC_DIR%\libs" ^
     netcdf="no" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
     build_full
