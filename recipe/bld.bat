@@ -38,8 +38,8 @@ call scons -j%CPU_COUNT% ^
     compressed_files=0 ^
     boost_prefix=%LIBRARY_INC%,%LIBRARY_LIB% ^
     prefix="%PREFIX%" ^
-    pythonlibname="python39" ^
-    pythonlibpath="%STDLIB_DIR" ^
+    pythonlibname="python3" ^
+    pythonlibpath="%PREFIX%/libs" ^
     pythonincpath=%LIBRARY_INC% ^
     netcdf="no" ^
     build_dir="%BUILD_PREFIX%\escript_build" ^
