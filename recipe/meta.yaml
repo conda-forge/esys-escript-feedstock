@@ -20,23 +20,16 @@ requirements:
     build:
         - {{ compiler('cxx') }}
         - scons
-        - cmake
-        - make
         - python
         - numpy
-        - git
     host:
         - boost-cpp
         - boost
         - numpy
         - python 
         - matplotlib-base
-        - hdf5
-        - libopenblas  # [linux]
         - openmp
-        - pyproj 
         - scipy
-        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -46,10 +39,8 @@ requirements:
         - python
         - matplotlib-base
         - openmp
-        - hdf5
-        - pyproj
         - scipy
-        - sympy
+        - suitesparse  # [linux]
         - gmsh  # [win]
 test:
     commands:
