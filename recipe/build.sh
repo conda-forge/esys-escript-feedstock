@@ -103,7 +103,7 @@ scons -j"${CPU_COUNT}" \
     silo=${BUILD_SILO} \
     silo_prefix=${PREFIX} \
     trilinos=0 \
-    umfpack=0 \
+    umfpack=1 \
     umfpack_prefix=${PREFIX} \
     build_full || cat config.log
 
