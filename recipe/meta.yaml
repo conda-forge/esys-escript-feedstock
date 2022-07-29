@@ -1,4 +1,4 @@
-{% set version = "5.9" %}
+{% set version = "5.10" %}
 
 package:
     name: esys-escript
@@ -8,61 +8,49 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.9pre.tar.gz
-      sha256: 076ffae508aa7b1d9e4b2075e3592a0743146a48e31d3489c892ff223b9ec6a6
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.10pre.tar.gz
+      sha256: ed7612e540bb6ddb8d266e1a0515fdb56ce8f6480db44435c86f3d6d0fa36d53
       folder: escript
 build:
-    skip: True  # [win]
     skip: True  # [osx]
+    skip: True  # [py<3]
+    skip: True  # [win]
     number: 0
 requirements:
     build:
         - {{ compiler('cxx') }}
-        - scons >3.0.5 
+        - scons
         - cmake
         - make
         - python
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
-        - mumps  # [win]
+        - numpy
         - git
     host:
         - boost-cpp
         - boost
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy
         - python 
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - hdf5  # [linux]
+        - matplotlib-base
+        - hdf5
         - libopenblas  # [linux]
+        - openmp
         - pyproj 
-        - scipy 
+        - scipy
+        - sympy
         - suitesparse  # [linux]
-        - sympy  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
         - gmsh  # [win]
-        - mumps  # [win]
     run:
         - boost-cpp
         - boost
-        - numpy  # [linux]
-        - numpy  # [win and py>=38]
-        - numpy ==1.15.4  # [win and py<=37]
+        - numpy
         - python
-        - matplotlib  # [linux]
-        - matplotlib  # [win and py>=38]
-        - matplotlib ==2.2.2  # [win and py<=37]
-        - hdf5  # [linux]
+        - matplotlib-base
+        - openmp
+        - hdf5
         - pyproj
         - scipy
-        - sympy  # [linux]
-        - sympy  # [win and py>=38]
-        - sympy ==1.1.1  # [win and py<=37]
+        - sympy
         - gmsh  # [win]
-        - mumps  # [win]
 test:
     commands:
         - run-escript -c
