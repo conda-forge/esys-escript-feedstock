@@ -92,7 +92,7 @@ scons -j"${CPU_COUNT}" \
     cxx_extra="-w -fPIC -fdiagnostics-color=always -std=c++17 --verbose" \
     cppunit_prefix=${PREFIX} \
     ld_extra="-L${PREFIX}/lib -lgomp" \
-    openmp=0 \
+    openmp=1 \
     omp_flags="-fopenmp" \
     paso=1 \
     prefix=${PREFIX} \
