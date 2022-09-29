@@ -22,6 +22,7 @@ requirements:
         - scons
         - python
         - numpy
+        - cmake
     host:
         - boost-cpp
         - boost
