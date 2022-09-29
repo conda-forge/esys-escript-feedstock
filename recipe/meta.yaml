@@ -23,6 +23,7 @@ requirements:
         - python
         - numpy
         - cmake
+        - make
     host:
         - boost-cpp
         - boost
