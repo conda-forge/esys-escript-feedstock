@@ -19,6 +19,7 @@ build:
 requirements:
     build:
         - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
         - scons
         - cmake
         - make
@@ -36,7 +37,6 @@ requirements:
         - openmp
         - pyproj 
         - scipy
-        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -49,7 +49,6 @@ requirements:
         - hdf5
         - pyproj
         - scipy
-        - sympy
         - gmsh  # [win]
 test:
     commands:
