@@ -33,6 +33,7 @@ requirements:
         - matplotlib-base
         - openmp
         - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -43,6 +44,7 @@ requirements:
         - matplotlib-base
         - openmp
         - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
 test:
