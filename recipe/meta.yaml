@@ -8,20 +8,23 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.10pre.tar.gz
-      sha256: ed7612e540bb6ddb8d266e1a0515fdb56ce8f6480db44435c86f3d6d0fa36d53
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/6.0_alpha_0.1_trilinos.tar.gz
+      sha256: f718fc45c57f0aa853e261e9488348307a5c34c0efcd34eaea8759ac4892db60
       folder: escript
 build:
     skip: True  # [osx]
     skip: True  # [py<3]
     skip: True  # [win]
-    number: 0
+    number: 1
 requirements:
     build:
         - {{ compiler('cxx') }}
+        - {{ compiler('fortran') }}
         - scons
         - python
         - numpy
+        - cmake
+        - make
     host:
         - boost-cpp
         - boost
@@ -30,6 +33,7 @@ requirements:
         - matplotlib-base
         - openmp
         - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -40,6 +44,7 @@ requirements:
         - matplotlib-base
         - openmp
         - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
 test:

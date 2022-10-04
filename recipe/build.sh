@@ -92,7 +92,7 @@ scons -j"${CPU_COUNT}" \
     cxx_extra="-w -fPIC -fdiagnostics-color=always -std=c++17 --verbose" \
     cppunit_prefix=${PREFIX} \
     ld_extra="-L${PREFIX}/lib -lgomp" \
-    openmp=0 \
+    openmp=1 \
     omp_flags="-fopenmp" \
     paso=1 \
     prefix=${PREFIX} \
@@ -102,8 +102,9 @@ scons -j"${CPU_COUNT}" \
     pythonlibname=${PYTHON_LIB_NAME} \
     silo=${BUILD_SILO} \
     silo_prefix=${PREFIX} \
-    trilinos=0 \
-    umfpack=1 \
+    build_trilinos=1 \
+    trilinos=1 \
+    umfpack=0 \
     umfpack_prefix=${PREFIX} \
     build_full || cat config.log
 
