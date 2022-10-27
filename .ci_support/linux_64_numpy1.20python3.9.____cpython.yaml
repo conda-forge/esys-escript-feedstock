@@ -17,7 +17,7 @@ docker_image:
 hdf5:
 - 1.12.1
 numpy:
-- '1.19'
+- '1.20'
 pin_run_as_build:
   boost:
     max_pin: x.x.x
@@ -27,7 +27,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.7.* *_cpython
+- 3.9.* *_cpython
 suitesparse:
 - '5'
 target_platform:
