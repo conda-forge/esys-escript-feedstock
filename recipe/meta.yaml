@@ -12,9 +12,7 @@ source:
       sha256: ed7612e540bb6ddb8d266e1a0515fdb56ce8f6480db44435c86f3d6d0fa36d53
       folder: escript
 build:
-    skip: True  # [osx]
-    skip: True  # [py<3]
-    skip: True  # [win]
+    skip: True  # [not linux]
     number: 1
 requirements:
     build:
