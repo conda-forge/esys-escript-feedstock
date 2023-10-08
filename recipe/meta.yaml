@@ -13,7 +13,6 @@ source:
       folder: escript
 build:
     skip: True  # [osx]
-    skip: True  # [py<3]
     skip: True  # [win]
     number: 2
 requirements:
@@ -40,7 +39,6 @@ requirements:
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
-        - libboost-python-devel
         - numpy
         - python
         - matplotlib-base
