@@ -51,28 +51,12 @@ CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
 # make -j"${CPU_COUNT}" install
 
-if [ ${CONDA_PY} -eq 38 ]
-then
-    BOOST_LIBS="boost_python${CONDA_PY}"
-    PYTHON_LIB_PATH="${PREFIX}/lib"
-    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
-    PYTHON_LIB_NAME="python${PY_VER}"
-    BUILD_SILO=0
-elif [ ${CONDA_PY} -eq 39 ]
-then
-    BOOST_LIBS="boost_python${CONDA_PY}"
-    PYTHON_LIB_PATH="${PREFIX}/lib"
-    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
-    PYTHON_LIB_NAME="python${PY_VER}"
-    BUILD_SILO=0
-else
-    DEFAULT_HDF5_INCDIR=$PREFIX/include
-    BOOST_LIBS="boost_python${CONDA_PY}"
-    PYTHON_LIB_PATH="${PREFIX}/lib"
-    PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}m"
-    PYTHON_LIB_NAME="python${PY_VER}m"
-    BUILD_SILO=0
-fi
+
+BOOST_LIBS="boost_python${CONDA_PY}"
+PYTHON_LIB_PATH="${PREFIX}/lib"
+PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
+PYTHON_LIB_NAME="python${PY_VER}"
+BUILD_SILO=0
 
 # debug
 find ${PREFIX} -iname Python.h
