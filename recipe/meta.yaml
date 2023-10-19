@@ -13,9 +13,8 @@ source:
       folder: escript
 build:
     skip: True  # [osx]
-    skip: True  # [py<3]
     skip: True  # [win]
-    number: 0
+    number: 2
 requirements:
     build:
         - {{ compiler('cxx') }}
@@ -27,8 +26,8 @@ requirements:
         - numpy
         - git
     host:
-        - boost-cpp
-        - boost
+        - libboost-devel
+        - libboost-python-devel
         - numpy
         - python 
         - matplotlib-base
@@ -41,8 +40,6 @@ requirements:
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
-        - boost-cpp
-        - boost
         - numpy
         - python
         - matplotlib-base
