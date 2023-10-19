@@ -37,6 +37,7 @@ requirements:
         - openmp
         - pyproj 
         - scipy
+        - sympy
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
@@ -49,6 +50,7 @@ requirements:
         - hdf5
         - pyproj
         - scipy
+        - sympy
         - gmsh  # [win]
 test:
     commands:
