@@ -14,11 +14,12 @@ source:
 build:
     skip: True  # [osx]
     skip: True  # [win]
-    number: 2
+    number: 3
 requirements:
     build:
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}
+        - {{ stdlib("c") }}
         - scons
         - cmake
         - make
