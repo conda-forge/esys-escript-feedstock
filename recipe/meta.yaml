@@ -14,7 +14,7 @@ source:
 build:
     skip: True  # [osx]
     skip: True  # [win]
-    number: 3
+    number: 4
 requirements:
     build:
         - {{ compiler('cxx') }}
