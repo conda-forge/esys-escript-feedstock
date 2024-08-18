@@ -30,7 +30,8 @@ requirements:
         - libboost-devel
         - libboost-python-devel
         - numpy
-        - python 
+        - python
+        - setuptools
         - matplotlib-base
         - hdf5
         - libopenblas  # [linux]
@@ -41,7 +42,6 @@ requirements:
         - suitesparse  # [linux]
         - gmsh  # [win]
     run:
-        - numpy
         - python
         - matplotlib-base
         - openmp
