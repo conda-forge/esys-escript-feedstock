@@ -51,6 +51,7 @@ requirements:
         - scipy
         - sympy
         - gmsh  # [win]
+        - setuptools  # [py>=312]
 test:
     commands:
         - run-escript -c
