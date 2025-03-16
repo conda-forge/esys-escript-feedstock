@@ -1,4 +1,4 @@
-{% set version = "5.10" %}
+{% set version = "5.10.1" %}
 
 package:
     name: esys-escript
@@ -8,19 +8,21 @@ source:
       sha256: e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc
       folder: netcdf-cxx4
       patches: netcdf-cxx4.patch
-    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/5.10pre.tar.gz
-      sha256: ed7612e540bb6ddb8d266e1a0515fdb56ce8f6480db44435c86f3d6d0fa36d53
+    - url: https://github.com/esys-escript/esys-escript.github.io/archive/refs/tags/{{ version }}.tar.gz
+      sha256: cd8aaf4ac085af1e0e3a6297f172ef2bc181198d0f666734f6cc3a8cc454472b
       folder: escript
+
 build:
     skip: True  # [osx]
     skip: True  # [win]
-    number: 5
+    number: 0
+
 requirements:
     build:
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}
         - {{ stdlib("c") }}
-        - scons
+        - scons <4.9
         - cmake
         - make
         - python
@@ -71,7 +73,7 @@ about:
         earth mantle convection, geophysical inversion, earthquakes, 
         porous media flow, reactive transport, plate subduction, erosion, 
         and tsunamis.
-    dev_url: https://launchpad.net/escript-finley
+    dev_url: https://github.com/LutzGross/esys-escript.github.io
     doc_url: https://launchpad.net/escript-finley
     doc_source_url: https://launchpad.net/escript-finley
 

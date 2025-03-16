@@ -9,7 +9,7 @@ Package license: Apache-2.0
 
 Summary: esys-escript is a programming tool for implementing mathematical models in python using the finite element method (FEM).
 
-Development: https://launchpad.net/escript-finley
+Development: https://github.com/LutzGross/esys-escript.github.io
 
 Documentation: https://launchpad.net/escript-finley
 
