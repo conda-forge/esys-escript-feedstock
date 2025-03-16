@@ -22,7 +22,7 @@ requirements:
         - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}
         - {{ stdlib("c") }}
-        - scons
+        - scons <4.9
         - cmake
         - make
         - python
