@@ -1,0 +1,63 @@
+diff --git a/pythonMPI/src/SConscript b/pythonMPI/src/SConscript
+index c6e326758..1e2c9ec74 100644
+--- a/pythonMPI/src/SConscript
++++ b/pythonMPI/src/SConscript
+@@ -31,9 +31,18 @@ sources_verbose = ['ScriptMPIverbose.cpp']
+ local_env = env.Clone()
+ local_env.PrependUnique(LIBS = ['escript'])
+ 
+-progs = local_env.Program('pythonMPI', sources)
+-progs += local_env.Program('pythonMPIredirect', sources_redirect)
+-progs += local_env.Program('pythonMPIverbose', sources_verbose)
++# The pythonMPI* binaries embed the Python interpreter, so -- unlike escript's
++# shared libraries and extension modules -- they must link libpython directly.
++# On macOS the global link line uses -undefined dynamic_lookup and omits
++# libpython (see site_scons/dependencies.py), so add it back for these
++# executables only.
++exe_env = local_env.Clone()
++if env['IS_OSX']:
++    exe_env.AppendUnique(LIBS = env['python_libs'])
++
++progs = exe_env.Program('pythonMPI', sources)
++progs += exe_env.Program('pythonMPIredirect', sources_redirect)
++progs += exe_env.Program('pythonMPIverbose', sources_verbose)
+ 
+ include_path = Dir('pythonMPI', local_env['incinstall'])
+ hdr_inst = local_env.Install(include_path, headers)
+diff --git a/site_scons/dependencies.py b/site_scons/dependencies.py
+index 55deb0eeb..358131fd7 100644
+--- a/site_scons/dependencies.py
++++ b/site_scons/dependencies.py
+@@ -271,6 +271,11 @@ def checkPython(env):
+     if env['pythonlibname'] :
+         python_libs = env['pythonlibname']
+ 
++    # Remember the python library name(s) so the pythonMPI* SConscript (whose
++    # binaries embed the interpreter) can link libpython explicitly; on macOS
++    # we keep libpython off the global link line (see below).
++    env['python_libs'] = python_libs
++
+     conf = Configure(env.Clone())
+ 
+     if env['sysheaderopt'] :
+@@ -279,7 +284,19 @@ def checkPython(env):
+         conf.env.AppendUnique(CPPPATH = [python_inc_path])
+ 
+     conf.env.AppendUnique(LIBPATH = [python_lib_path])
+-    conf.env.AppendUnique(LIBS = python_libs)
++    if env['IS_OSX']:
++        # Do NOT link libpython into escript's shared libraries and Python
++        # extension modules. They are loaded into a Python interpreter that
++        # already provides libpython; linking it again creates a second
++        # libpython state that corrupts the Boost.Python converter registry and
++        # segfaults on import (conda-forge/boost-feedstock#266). Resolve the
++        # Python C-API symbols lazily from the host interpreter instead. The
++        # pythonMPI* executables, which embed the interpreter, link libpython
++        # explicitly in pythonMPI/src/SConscript.
++        conf.env.AppendUnique(LINKFLAGS = ['-Wl,-undefined,dynamic_lookup'])
++        conf.env.AppendUnique(SHLINKFLAGS = ['-Wl,-undefined,dynamic_lookup'])
++    else:
++        conf.env.AppendUnique(LIBS = python_libs)
+     # The wrapper script needs to find the libs
+     conf.env.PrependENVPath(env['LD_LIBRARY_PATH_KEY'], python_lib_path)
+ 

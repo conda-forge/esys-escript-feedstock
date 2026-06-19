@@ -6,53 +6,19 @@ set -o pipefail
 CFLAGS="${CFLAGS} -I${PREFIX}/include -fPIC"
 CXXFLAGS="${CXXFLAGS} -fPIC -w -fopenmp"
 
-# INSTALL_PATH=${PREFIX}
-# TRILINOS_BUILD=${SRC_DIR}/trilinos
-
-# cmake \
-#   -D CMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-#   -D CMAKE_BUILD_TYPE=RELEASE \
-#   -D CMAKE_CXX_FLAGS=" " \
-#   -D CMAKE_C_FLAGS=" " \
-#   -D Trilinos_ENABLE_CXX11=ON \
-#   -D Trilinos_ENABLE_Fortran=OFF \
-#   -D BUILD_SHARED_LIBS=ON \
-#   -D TPL_ENABLE_BLAS=ON \
-#   -D TPL_ENABLE_Boost=OFF \
-#   -D TPL_ENABLE_Cholmod=ON \
-#   -D TPL_ENABLE_LAPACK=ON \
-#   -D TPL_ENABLE_METIS=ON \
-#   -D TPL_ENABLE_SuperLU=OFF \
-#   -D TPL_ENABLE_UMFPACK=ON \
-#   -D Trilinos_ENABLE_Amesos=ON \
-#   -D Trilinos_ENABLE_Amesos2=ON \
-#   -D Trilinos_ENABLE_AztecOO=ON \
-#   -D Trilinos_ENABLE_Belos=ON \
-#   -D Trilinos_ENABLE_Ifpack=ON \
-#   -D Trilinos_ENABLE_Ifpack2=ON \
-#   -D Trilinos_ENABLE_Kokkos=ON \
-#   -D Trilinos_ENABLE_Komplex=ON \
-#   -D Trilinos_ENABLE_ML=ON \
-#   -D Trilinos_ENABLE_MueLu=ON \
-#   -D Trilinos_ENABLE_Teuchos=ON \
-#   -D Trilinos_ENABLE_Tpetra=ON \
-#   -D Trilinos_ENABLE_ALL_OPTIONAL_PACKAGES=ON \
-#   -D Trilinos_ENABLE_OpenMP=ON \
-#   -D Trilinos_ENABLE_MPI=OFF \
-#   -D Trilinos_ENABLE_EXPLICIT_INSTANTIATION=ON \
-#   -D Kokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON \
-#   -D Amesos2_ENABLE_Basker=ON \
-#   -D Tpetra_INST_SERIAL:BOOL=ON \
-#   -D Trilinos_ENABLE_TESTS=OFF \
-#   -D Tpetra_INST_INT_INT=ON \
-#   -D Teuchos_ENABLE_COMPLEX=ON \
-#   -D Trilinos_ENABLE_COMPLEX_DOUBLE=ON \
-#   $TRILINOS_BUILD
-
-# make -j"${CPU_COUNT}" install
-
-
 BOOST_LIBS="boost_python${CONDA_PY}"
+
+# OpenMP runtime: GNU libgomp on Linux, LLVM libomp on macOS.
+# On macOS also pass -headerpad_max_install_names so conda-build's
+# install_name_tool rewrite step doesn't run out of header space when
+# substituting the long _h_env_placehold... prefix into RPATHs.
+LD_PLATFORM_EXTRA=""
+if [[ "$(uname)" == "Darwin" ]]; then
+    OMP_LIB="omp"
+    LD_PLATFORM_EXTRA="-Wl,-headerpad_max_install_names"
+else
+    OMP_LIB="gomp"
+fi
 PYTHON_LIB_PATH="${PREFIX}/lib"
 PYTHON_INC_PATH="${PREFIX}/include/python${PY_VER}"
 PYTHON_LIB_NAME="python${PY_VER}"
@@ -62,24 +28,62 @@ BUILD_SILO=0
 find ${PREFIX} -iname Python.h
 find ${PREFIX} -iname libboost_python*
 find ${PREFIX} -iname libpython*
-find ${PREFIX} -iname libmpi_cxx*
 
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 
-cd ${SRC_DIR}/escript
+# Source layout changed in 6.x: single tarball (no separate netcdf-cxx4
+# folder), so build from ${SRC_DIR} directly rather than ${SRC_DIR}/escript.
+cd ${SRC_DIR}
+
+# conda-forge ships umfpack.h under include/suitesparse/, but scons
+# findLibWithHeader only handles include/<header> when given a string prefix.
+# SCons CLI args are strings, so set the [include, lib] list in the options
+# file instead.
+cat >> ${SRC_DIR}/scons/templates/anaconda_options.py <<EOF
+
+import os as _os
+umfpack_prefix = [_os.path.join('${PREFIX}', 'include', 'suitesparse'),
+                  _os.path.join('${PREFIX}', 'lib')]
+del _os
+
+# hdf5_libs defaults to the literal string 'DEFAULT' which the build then
+# tries to -lDEFAULT. Set the real conda-forge lib names.
+hdf5_libs = ['hdf5_cpp', 'hdf5']
+
+# conda-forge ships mumps-seq with a '_seq' suffix and only the four
+# precision-variant libs + the mpiseq shim.  escript's default list expects
+# system-MUMPS names (mumps_common, dmumps, ... plus lapack/metis/scotch/
+# esmumps/gfortran which conda-forge pulls in transitively as SONAMEs).
+mumps_seq_libs = ['dmumps_seq', 'zmumps_seq', 'mumps_common_seq', 'pord_seq', 'mpiseq']
+EOF
+
+# dependencies.py hard-codes a Windows-style 'Lib/' path when CONDA_PREFIX is
+# set, which fails on Linux/macOS. Patch it to use numpy.get_include() instead.
+# (Avoid `sed -i` — flag semantics differ between GNU and BSD sed.)
+${PREFIX}/bin/python - <<PYEOF
+path = "${SRC_DIR}/site_scons/dependencies.py"
+import numpy
+new = repr(numpy.get_include())
+with open(path) as f:
+    text = f.read()
+text = text.replace("conda_prefix+'/Lib/site-packages/numpy/core/include'", new)
+with open(path, "w") as f:
+    f.write(text)
+PYEOF
+
 scons -j"${CPU_COUNT}" \
-    options_file="${SRC_DIR}/escript/scons/templates/anaconda_python3_options.py" \
+    options_file="${SRC_DIR}/scons/templates/anaconda_options.py" \
     build_dir=${BUILD_PREFIX}/escript_build \
     boost_prefix=${PREFIX} \
     boost_libs=${BOOST_LIBS} \
     cxx=${CXX} \
-    cxx_extra="-w -fPIC -fdiagnostics-color=always -std=c++17 --verbose" \
     cppunit_prefix=${PREFIX} \
-    ld_extra="-L${PREFIX}/lib -lgomp" \
-    openmp=0 \
+    hdf5_prefix=${PREFIX} \
+    ld_extra="-L${PREFIX}/lib -l${OMP_LIB} ${LD_PLATFORM_EXTRA}" \
+    openmp=1 \
     omp_flags="-fopenmp" \
     paso=1 \
-    prefix=${PREFIX} \
+    PREFIX=${PREFIX} \
     pythoncmd=${PREFIX}/bin/python \
     pythonlibpath=${PYTHON_LIB_PATH} \
     pythonincpath=${PYTHON_INC_PATH} \
@@ -87,11 +91,12 @@ scons -j"${CPU_COUNT}" \
     silo=${BUILD_SILO} \
     silo_prefix=${PREFIX} \
     trilinos=0 \
-    umfpack=0 \
-    umfpack_prefix=${PREFIX} \
+    build_trilinos=never \
+    trilinos_src=${SRC_DIR} \
+    umfpack=1 \
+    mumps_seq=1 \
+    mumps_seq_prefix=${PREFIX} \
     build_full || cat config.log
 
-cp -R ${SRC_DIR}/escript/LICENSE ${SRC_DIR}/LICENSE
 ln -s ${PREFIX}/lib/buildvars ${PREFIX}/lib/buildvars.in
 cp -R ${PREFIX}/esys ${SP_DIR}/esys
-cp -R ${BUILD_PREFIX}/escript_build/scripts/release_sanity.py /tmp/release_sanity.py
